@@ -1,8 +1,377 @@
-/*
+/* @settings
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
-
-If your plugin does not need CSS, delete this file.
-
+name: Advanced Ruby
+id: advanced-ruby-settings
+settings:
+    - 
+        id: heading-color
+        title: Color
+        type: heading
+        level: 2
+        collapsed: true
+    - 
+        id: base-text-color
+        title: Base text
+        description: Inherits its parent by default.        
+        type: variable-select
+        default: inherit
+        options:
+            - 
+                label: inherit
+                value: inherit
+            -
+                label: red
+                value: var(--color-red)
+            -
+                label: orange
+                value: var(--color-orange)
+            -
+                label: yellow
+                value: var(--color-yellow)
+            -
+                label: green
+                value: var(--color-green)
+            -
+                label: cyan
+                value: var(--color-cyan)
+            -
+                label: blue
+                value: var(--color-blue)
+            -
+                label: purple
+                value: var(--color-purple)
+            -
+                label: pink
+                value: var(--color-pink)
+            -
+                label: base-50
+                value: var(--color-base-50)
+            -
+                label: base-60
+                value: var(--color-base-60)
+            -
+                label: base-70
+                value: var(--color-base-70)
+            -
+                label: accent
+                value: var(--color-accent)
+            -
+                label: accent-1
+                value: var(--color-accent-1)
+            -
+                label: accent-2
+                value: var(--color-accent-2)
+    - 
+        id: ruby-color
+        title: Ruby
+        description: Inherits base text by default.
+        type: variable-select
+        default: inherit
+        options:
+            - 
+                label: inherit
+                value: inherit
+            -
+                label: red
+                value: var(--color-red)
+            -
+                label: orange
+                value: var(--color-orange)
+            -
+                label: yellow
+                value: var(--color-yellow)
+            -
+                label: green
+                value: var(--color-green)
+            -
+                label: cyan
+                value: var(--color-cyan)
+            -
+                label: blue
+                value: var(--color-blue)
+            -
+                label: purple
+                value: var(--color-purple)
+            -
+                label: pink
+                value: var(--color-pink)
+            -
+                label: base-50
+                value: var(--color-base-50)
+            -
+                label: base-60
+                value: var(--color-base-60)
+            -
+                label: base-70
+                value: var(--color-base-70)
+            -
+                label: accent
+                value: var(--color-accent)
+            -
+                label: accent-1
+                value: var(--color-accent-1)
+            -
+                label: accent-2
+                value: var(--color-accent-2)
+    - 
+        id: secondary-base-text-color
+        title: Secondary base text
+        description: Inherits its parent by default.
+        type: variable-select
+        default: inherit
+        options:
+            - 
+                label: inherit
+                value: inherit
+            -
+                label: red
+                value: var(--color-red)
+            -
+                label: orange
+                value: var(--color-orange)
+            -
+                label: yellow
+                value: var(--color-yellow)
+            -
+                label: green
+                value: var(--color-green)
+            -
+                label: cyan
+                value: var(--color-cyan)
+            -
+                label: blue
+                value: var(--color-blue)
+            -
+                label: purple
+                value: var(--color-purple)
+            -
+                label: pink
+                value: var(--color-pink)
+            -
+                label: base-50
+                value: var(--color-base-50)
+            -
+                label: base-60
+                value: var(--color-base-60)
+            -
+                label: base-70
+                value: var(--color-base-70)
+            -
+                label: accent
+                value: var(--color-accent)
+            -
+                label: accent-1
+                value: var(--color-accent-1)
+            -
+                label: accent-2
+                value: var(--color-accent-2)
+    - 
+        id: parent-ruby-color
+        title: Parent ruby
+        description: Inherits base text by default.
+        type: variable-select
+        default: inherit
+        options:
+            - 
+                label: inherit
+                value: inherit
+            -
+                label: red
+                value: var(--color-red)
+            -
+                label: orange
+                value: var(--color-orange)
+            -
+                label: yellow
+                value: var(--color-yellow)
+            -
+                label: green
+                value: var(--color-green)
+            -
+                label: cyan
+                value: var(--color-cyan)
+            -
+                label: blue
+                value: var(--color-blue)
+            -
+                label: purple
+                value: var(--color-purple)
+            -
+                label: pink
+                value: var(--color-pink)
+            -
+                label: base-50
+                value: var(--color-base-50)
+            -
+                label: base-60
+                value: var(--color-base-60)
+            -
+                label: base-70
+                value: var(--color-base-70)
+            -
+                label: accent
+                value: var(--color-accent)
+            -
+                label: accent-1
+                value: var(--color-accent-1)
+            -
+                label: accent-2
+                value: var(--color-accent-2)
+    - 
+        id: size
+        title: Size
+        type: heading
+        level: 2
+        collapsed: true
+    - 
+        id: ruby-size
+        title: Ruby
+        description: Size compared to base text in %.
+        type: variable-number-slider
+        default: 50
+        min: 30
+        max: 80
+        step: 5
+        format: "%"
+    - 
+        id: parent-ruby-size
+        title: Parent ruby
+        description: Size compared to base text in %.
+        type: variable-number-slider
+        default: 50
+        min: 30
+        max: 80
+        step: 5
+        format: "%"
+    - 
+        id: heading-ruby-position
+        title: Ruby position
+        type: heading
+        level: 2
+        collapsed: true
+    - 
+        id: ruby-position
+        title: Ruby
+        type: variable-select
+        default: over
+        options:
+            - over
+            - under
+    - 
+        id: parent-ruby-position
+        title: Parent ruby
+        type: variable-select
+        default: under
+        options:
+            - over
+            - under
+    - 
+        id: heading-relative-offset
+        title: Relative offset
+        type: heading
+        description: Does not effect line height.
+        level: 2
+        collapsed: true
+    - 
+        id: ruby-relative-offset
+        title: Ruby
+        description: Uses em units.
+        type: variable-number-slider
+        default: 0.2
+        min: -1
+        max: 1
+        step: 0.1
+        format: em
+    - 
+        id: parent-ruby-relative-offset
+        title: Parent ruby
+        description: Uses em units.
+        type: variable-number-slider
+        default: -0.2
+        min: -1
+        max: 1
+        step: 0.1
+        format: em
+    - 
+        id: heading-distribution
+        title: Distribution
+        type: heading
+        description: Distribution of the different ruby elements.
+        level: 2
+        collapsed: true
+    - 
+        id: ruby-distribution
+        title: Ruby
+        type: variable-select
+        default: space-around
+        options:
+            - start
+            - center
+            - space-between
+            - space-around
+    - 
+        id: parent-ruby-distribution
+        title: Parent ruby
+        type: variable-select
+        default: center
+        options:
+            - start
+            - center
+            - space-between
+            - space-around
 */
+
+:root {
+	--base-text-color: inherit;
+	--ruby-color: inherit;
+	--secondary-base-text-color: inherit;
+	--parent-ruby-color: inherit;
+
+	--ruby-size: 50%;
+	--parent-ruby-size: 50%;
+
+	--ruby-position: over;
+	--parent-ruby-position: under;
+
+	--ruby-relative-offset: 0.2;
+	--parent-ruby-relative-offset: -0.2;
+
+	--annotation-hide: 1;
+	--annotation-distribution: space-between;
+
+	--ruby-distribution: space-around;
+	--parent-ruby-distribution: center;
+}
+
+ruby {
+	color: var(--secondary-base-text-color);
+}
+
+ruby:not(:has(ruby)) {
+	color: var(--base-text-color);
+	ruby-position: var(--ruby-position);
+}
+
+ruby > rt {
+	color: var(--ruby-color);
+	font-size: var(--ruby-size);
+
+	position: relative;
+	bottom: var(--ruby-relative-offset);
+
+	ruby-align: var(--ruby-distribution);
+}
+
+ruby:has(ruby) {
+	ruby-position: var(--parent-ruby-position);
+}
+
+ruby:has(ruby) > rt {
+	color: var(--parent-ruby-color);
+	font-size: var(--parent-ruby-size);
+
+	position: relative;
+	bottom: var(--parent-ruby-relative-offset);
+
+	ruby-align: var(--parent-ruby-distribution);
+}
