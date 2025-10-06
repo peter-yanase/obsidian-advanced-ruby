@@ -3,7 +3,7 @@
 	"name": "Advanced Ruby",
 	"version": "1.0.0",
 	"minAppVersion": "1.9.14",
-	"description": "Flexible ruby annotation plugin for Obsidian.",
+	"description": "Flexible, language-independent ruby annotation rendering.",
 	"author": "Peter Yanase",
 	"isDesktopOnly": false
 }
