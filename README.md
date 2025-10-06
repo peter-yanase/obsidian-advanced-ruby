@@ -1,4 +1,4 @@
-<img src="logo.svg">
+<div style="text-align: center"><img src="./assets/logo_on_dark.svg"></div>
 
 Advanced Ruby is a flexible ruby annotation plugin for Obsidian.
 It renders `{base|ruby}` syntax into semantic `<ruby><rt>` tags in reading mode—without modifying your notes.
@@ -15,7 +15,7 @@ It supports nested ruby, exposes granular styling via the Style Settings plugin 
 - Non-destructive rendering
 - Handles complex nested markup
 
-<img src="sample.png">
+<img src="./assets/sample.png">
 
 ## Design choices
 

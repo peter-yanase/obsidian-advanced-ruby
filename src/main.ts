@@ -1,8 +1,8 @@
-import { Plugin, MarkdownView } from "obsidian";
+import { Plugin, MarkdownView, sanitizeHTMLToDom } from "obsidian";
 import { addMDRubyWrapper } from "./rubyutils";
 
 const MDRubyRegex: RegExp = /\{(.+?)\|(.+?)\}/g;
-const excludedTags: Set<string> = new Set(["CODE", "PRE"]);
+const notRendering: Set<string> = new Set(["CODE", "PRE"]);
 
 export default class AdvancedRuby extends Plugin {
 	async onload() {
@@ -22,7 +22,7 @@ export default class AdvancedRuby extends Plugin {
 				const candidateNode: Text = walker.currentNode as Text;
 				const candidateNodeTag: string | undefined =
 					candidateNode.parentElement?.tagName;
-				if (candidateNodeTag && excludedTags.has(candidateNodeTag))
+				if (candidateNodeTag && notRendering.has(candidateNodeTag))
 					continue;
 				nodesToMutate.push(candidateNode);
 			}
@@ -34,28 +34,26 @@ export default class AdvancedRuby extends Plugin {
 				//Mutate text
 				let currentTextMutation: string = originalText;
 				let previousTextMutation: string;
+				const maxMutations: number = 5;
+				let mutationCount: number = 0;
 				do {
 					previousTextMutation = currentTextMutation;
 					currentTextMutation = currentTextMutation.replace(
 						MDRubyRegex,
-						(_, base, ruby) => {
-							return `<ruby>${base}<rt>${ruby}</rt></ruby>`;
-						}
+						(_, base, ruby) =>
+							`<ruby>${base}<rt>${ruby}</rt></ruby>`
 					);
-				} while (currentTextMutation !== previousTextMutation);
+					mutationCount++;
+				} while (
+					currentTextMutation !== previousTextMutation &&
+					mutationCount < maxMutations
+				);
 				const newText: string = currentTextMutation;
 
-				// Parse the HTML string into a throwaway <div>
-				const throwawayContainer = document.createElement("div");
-				throwawayContainer.innerHTML = newText;
+				// Sanitize HTML
+				const safeFragment = sanitizeHTMLToDom(newText);
 
-				// Transfer child nodes into a DocumentFragment
-				const safeFragment = document.createDocumentFragment();
-				while (throwawayContainer.firstChild) {
-					safeFragment.appendChild(throwawayContainer.firstChild);
-				}
-
-				// Inject sanitized DOM nodes into the document
+				// Inject sanitized fragment into the document
 				nodeToMutate.replaceWith(safeFragment);
 			}
 		});
