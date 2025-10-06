@@ -1,7 +1,7 @@
 {
 	"name": "advanced-ruby",
 	"version": "1.0.0",
-	"description": "Flexible ruby annotation plugin for Obsidian.",
+	"description": "Flexible, language-independent ruby annotation rendering.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
