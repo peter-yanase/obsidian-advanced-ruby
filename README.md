@@ -1,15 +1,17 @@
 <p align="center"><img src="./assets/logo_on_dark.svg"></p>
 
-Advanced Ruby enables complex, language-independent ruby annotation rendering in [Obsidian](https://github.com/obsidianmd).
-It renders `{base|ruby}` syntax into semantic `<ruby><rt>` tags in reading mode without modifying your notes.
-While ruby is commonly used for showing the pronounciation of East Asian characters, it can be used to any kind of text.
-This plugin supports the full range of Unicode, making it suitable for not only phonetic guides, but also semantic glosses, or layered annotations across languages and notes.
+Advanced Ruby enables complex, language-independent ruby annotation rendering and editing in [Obsidian](https://github.com/obsidianmd).
+In reading mode, it renders markdown ruby syntax (`{base|ruby}`) into HTML ruby tags (`<ruby>base<rt>ruby</rt></ruby>`) without modifying your notes.
+In editing mode, you can insert Markdown ruby wrappers and convert between Markdown and HTML ruby syntaxes.
+While ruby is commonly used for showing the pronounciation of Japanese and other East Asian characters, it can be used to annotate any kind of text.
+This plugin supports the full range of Unicode, making it suitable for not only phonetic guides, but also semantic glosses, or layered annotations.
 
 ## Features
 
 - Fast and efficient parsing
 - Code block skipping
 - Command to wrap selected text in ruby syntax
+- Command to convert between Markdown and HTML syntax
 - Granular style settings via the [Obsidian Style Settings Plugin](https://github.com/mgmeyers/obsidian-style-settings) (up to two layers)
 - Non-destructive rendering
 - Supporting complex nested markup
