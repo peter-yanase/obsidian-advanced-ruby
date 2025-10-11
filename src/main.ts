@@ -112,7 +112,7 @@ export default class AdvancedRuby extends Plugin {
 
 		this.addCommand({
 			id: "convert-between-formats",
-			name: "Convert between Markdown and HTML ruby formats",
+			name: "Convert between Markdown and HTML ruby syntaxes",
 			checkCallback: (checking: boolean) => {
 				const markdownView: MarkdownView | null =
 					this.app.workspace.getActiveViewOfType(MarkdownView);
