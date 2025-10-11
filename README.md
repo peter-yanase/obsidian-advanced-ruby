@@ -35,3 +35,4 @@ Standing on the shoulders of giants:
  - [Markdown Furigana Plugin (Obsidian)](https://github.com/steven-kraft/obsidian-markdown-furigana)
  - [Obsidian Furigana](https://github.com/uonr/obsidian-furigana)
  - [Japanese Novel Ruby Plugin for Obsidian](https://github.com/k-quels/japanese-novel-ruby)
+ 
