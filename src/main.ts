@@ -1,15 +1,15 @@
-import { Plugin, MarkdownView, sanitizeHTMLToDom, Notice } from "obsidian";
+import { Plugin, MarkdownView, sanitizeHTMLToDom, Notice, Editor } from "obsidian";
 import { addMDRubyWrapper } from "./rubyutils";
 
-const MDRubyRegex: RegExp = /\{(.+?)\|(.+?)\}/g;
-const HTMLRubyRegex: RegExp = /<ruby>(.*?)<rt>(.*?)<\/rt><\/ruby>/g;
+const MDRubyRegex: RegExp = /{(.+?)\|(.+?)}/g;
+const HTMLRubyRegex: RegExp = /<ruby>(.+?)<rt>(.+?)<\/rt><\/ruby>/g;
 const notRendering: Set<string> = new Set(["CODE", "PRE"]);
 
 function transformRubyBlocks(
 	originalText: string,
 	autoDetectRuby: boolean = false
 ): string {
-	let maxMutations: number = 5
+	let maxMutations: number = 5;
 	let currentTextMutation: string = originalText;
 	let previousTextMutation: string;
 	let mutationCount: number = 0;
@@ -21,7 +21,6 @@ function transformRubyBlocks(
 	}
 
 	let head: string, divider: string, tail: string;
-
 	switch (direction) {
 		case "md-to-html":
 			head = "<ruby>";
@@ -86,7 +85,7 @@ export default class AdvancedRuby extends Plugin {
 				const newText: string = transformRubyBlocks(originalText);
 
 				// Sanitize HTML
-				const safeFragment = sanitizeHTMLToDom(newText);
+				const safeFragment: DocumentFragment = sanitizeHTMLToDom(newText);
 
 				// Inject sanitized fragment into the document
 				nodeToMutate.replaceWith(safeFragment);
@@ -97,12 +96,12 @@ export default class AdvancedRuby extends Plugin {
 			id: "add-md-ruby-wrapper",
 			name: "Wrap in Markdown ruby syntax",
 			checkCallback: (checking: boolean) => {
-				const markdownView =
+				const markdownView: MarkdownView | null =
 					this.app.workspace.getActiveViewOfType(MarkdownView);
 				if (!markdownView) return false;
-				const editor = markdownView.editor;
+				const editor: Editor = markdownView.editor;
 				if (!editor) return false;
-				const selection = editor.getSelection();
+				const selection: string = editor.getSelection();
 				if (!selection) return false;
 				if (!checking) {
 					addMDRubyWrapper(editor, selection);
@@ -115,14 +114,14 @@ export default class AdvancedRuby extends Plugin {
 			id: "convert-between-formats",
 			name: "Convert between Markdown and HTML ruby formats",
 			checkCallback: (checking: boolean) => {
-				const markdownView =
+				const markdownView: MarkdownView | null =
 					this.app.workspace.getActiveViewOfType(MarkdownView);
 				if (!markdownView) return false;
-				const editor = markdownView.editor;
+				const editor: Editor = markdownView.editor;
 				if (!editor) return false;
 				if (checking) return true;
-				const fullText = editor.getValue();
-				const convertedText = transformRubyBlocks(fullText, true);
+				const fullText: string = editor.getValue();
+				const convertedText: string = transformRubyBlocks(fullText, true);
 				editor.setValue(convertedText);
 				new Notice("Ruby blocks converted successfully.");
 				return true;
