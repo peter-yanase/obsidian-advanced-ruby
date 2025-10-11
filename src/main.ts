@@ -1,8 +1,59 @@
-import { Plugin, MarkdownView, sanitizeHTMLToDom } from "obsidian";
+import { Plugin, MarkdownView, sanitizeHTMLToDom, Notice } from "obsidian";
 import { addMDRubyWrapper } from "./rubyutils";
 
 const MDRubyRegex: RegExp = /\{(.+?)\|(.+?)\}/g;
+const HTMLRubyRegex: RegExp = /<ruby>(.*?)<rt>(.*?)<\/rt><\/ruby>/g;
 const notRendering: Set<string> = new Set(["CODE", "PRE"]);
+
+function transformRubyBlocks(
+	originalText: string,
+	autoDetectRuby: boolean = false
+): string {
+	let maxMutations: number = 5
+	let currentTextMutation: string = originalText;
+	let previousTextMutation: string;
+	let mutationCount: number = 0;
+	let regex: RegExp = MDRubyRegex;
+	let direction: string = "md-to-html";
+
+	if (autoDetectRuby && !MDRubyRegex.test(originalText)) {
+		direction = "html-to-md";
+	}
+
+	let head: string, divider: string, tail: string;
+
+	switch (direction) {
+		case "md-to-html":
+			head = "<ruby>";
+			divider = "<rt>";
+			tail = "</rt></ruby>";
+			break;
+		case "html-to-md":
+			head = "{";
+			divider = "|";
+			tail = "}";
+			regex = HTMLRubyRegex;
+			break;
+		default:
+			return originalText;
+	}
+
+	do {
+		previousTextMutation = currentTextMutation;
+		currentTextMutation = currentTextMutation.replace(
+			regex,
+			(_, base, ruby) => {
+				return `${head}${base}${divider}${ruby}${tail}`;
+			}
+		);
+		mutationCount++;
+	} while (
+		currentTextMutation !== previousTextMutation &&
+		mutationCount < maxMutations
+	);
+
+	return currentTextMutation;
+}
 
 export default class AdvancedRuby extends Plugin {
 	async onload() {
@@ -32,23 +83,7 @@ export default class AdvancedRuby extends Plugin {
 				const originalText: string = nodeToMutate.nodeValue!;
 
 				//Mutate text
-				let currentTextMutation: string = originalText;
-				let previousTextMutation: string;
-				const maxMutations: number = 5;
-				let mutationCount: number = 0;
-				do {
-					previousTextMutation = currentTextMutation;
-					currentTextMutation = currentTextMutation.replace(
-						MDRubyRegex,
-						(_, base, ruby) =>
-							`<ruby>${base}<rt>${ruby}</rt></ruby>`
-					);
-					mutationCount++;
-				} while (
-					currentTextMutation !== previousTextMutation &&
-					mutationCount < maxMutations
-				);
-				const newText: string = currentTextMutation;
+				const newText: string = transformRubyBlocks(originalText);
 
 				// Sanitize HTML
 				const safeFragment = sanitizeHTMLToDom(newText);
@@ -72,6 +107,24 @@ export default class AdvancedRuby extends Plugin {
 				if (!checking) {
 					addMDRubyWrapper(editor, selection);
 				}
+				return true;
+			},
+		});
+
+		this.addCommand({
+			id: "convert-between-formats",
+			name: "Convert between Markdown and HTML ruby formats",
+			checkCallback: (checking: boolean) => {
+				const markdownView =
+					this.app.workspace.getActiveViewOfType(MarkdownView);
+				if (!markdownView) return false;
+				const editor = markdownView.editor;
+				if (!editor) return false;
+				if (checking) return true;
+				const fullText = editor.getValue();
+				const convertedText = transformRubyBlocks(fullText, true);
+				editor.setValue(convertedText);
+				new Notice("Ruby blocks converted successfully.");
 				return true;
 			},
 		});
