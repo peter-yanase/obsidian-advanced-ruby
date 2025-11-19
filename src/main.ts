@@ -1,4 +1,10 @@
-import { Plugin, MarkdownView, sanitizeHTMLToDom, Notice, Editor } from "obsidian";
+import {
+	Plugin,
+	MarkdownView,
+	sanitizeHTMLToDom,
+	Notice,
+	Editor,
+} from "obsidian";
 import { addMDRubyWrapper } from "./rubyutils";
 
 const MDRubyRegex: RegExp = /{(.+?)\|(.+?)}/g;
@@ -7,7 +13,7 @@ const notRendering: Set<string> = new Set(["CODE", "PRE"]);
 
 function transformRubyBlocks(
 	originalText: string,
-	autoDetectRuby: boolean = false
+	autoDetectRuby: boolean = false,
 ): string {
 	let maxMutations: number = 5;
 	let currentTextMutation: string = originalText;
@@ -43,7 +49,7 @@ function transformRubyBlocks(
 			regex,
 			(_, base, ruby) => {
 				return `${head}${base}${divider}${ruby}${tail}`;
-			}
+			},
 		);
 		mutationCount++;
 	} while (
@@ -55,6 +61,7 @@ function transformRubyBlocks(
 }
 
 export default class AdvancedRuby extends Plugin {
+	// eslint-disable-next-line require-await
 	async onload() {
 		this.registerMarkdownPostProcessor((element, context) => {
 			// Skip early if no curly brackets
@@ -63,7 +70,7 @@ export default class AdvancedRuby extends Plugin {
 			// Create walker
 			const walker: TreeWalker = document.createTreeWalker(
 				element,
-				NodeFilter.SHOW_TEXT // Only process nodes containing text
+				NodeFilter.SHOW_TEXT, // Only process nodes containing text
 			);
 
 			// Create array of nodes to mutate
@@ -85,7 +92,8 @@ export default class AdvancedRuby extends Plugin {
 				const newText: string = transformRubyBlocks(originalText);
 
 				// Sanitize HTML
-				const safeFragment: DocumentFragment = sanitizeHTMLToDom(newText);
+				const safeFragment: DocumentFragment =
+					sanitizeHTMLToDom(newText);
 
 				// Inject sanitized fragment into the document
 				nodeToMutate.replaceWith(safeFragment);
@@ -99,6 +107,7 @@ export default class AdvancedRuby extends Plugin {
 				const markdownView: MarkdownView | null =
 					this.app.workspace.getActiveViewOfType(MarkdownView);
 				if (!markdownView) return false;
+				if (markdownView.getMode() !== "source") return false;
 				const editor: Editor = markdownView.editor;
 				if (!editor) return false;
 				const selection: string = editor.getSelection();
@@ -117,13 +126,18 @@ export default class AdvancedRuby extends Plugin {
 				const markdownView: MarkdownView | null =
 					this.app.workspace.getActiveViewOfType(MarkdownView);
 				if (!markdownView) return false;
+				if (markdownView.getMode() !== "source") return false;
 				const editor: Editor = markdownView.editor;
 				if (!editor) return false;
-				if (checking) return true;
-				const fullText: string = editor.getValue();
-				const convertedText: string = transformRubyBlocks(fullText, true);
-				editor.setValue(convertedText);
-				new Notice("Ruby blocks converted successfully.");
+				if (!checking) {
+					const fullText: string = editor.getValue();
+					const convertedText: string = transformRubyBlocks(
+						fullText,
+						true,
+					);
+					editor.setValue(convertedText);
+					new Notice("Ruby blocks converted successfully.");
+				}
 				return true;
 			},
 		});
