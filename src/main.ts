@@ -61,8 +61,7 @@ function transformRubyBlocks(
 }
 
 export default class AdvancedRuby extends Plugin {
-	// eslint-disable-next-line require-await
-	async onload() {
+	onload() {
 		this.registerMarkdownPostProcessor((element, context) => {
 			// Skip early if no curly brackets
 			if (!element.innerText.includes("{")) return;
