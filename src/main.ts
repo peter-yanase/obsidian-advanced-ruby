@@ -102,13 +102,7 @@ export default class AdvancedRuby extends Plugin {
 		this.addCommand({
 			id: "add-md-ruby-wrapper",
 			name: "Wrap in Markdown ruby syntax",
-			checkCallback: (checking: boolean) => {
-				const markdownView: MarkdownView | null =
-					this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (!markdownView) return false;
-				if (markdownView.getMode() !== "source") return false;
-				const editor: Editor = markdownView.editor;
-				if (!editor) return false;
+			editorCheckCallback: (checking: boolean, editor: Editor, _) => {
 				const selection: string = editor.getSelection();
 				if (!selection) return false;
 				if (!checking) {
@@ -121,13 +115,7 @@ export default class AdvancedRuby extends Plugin {
 		this.addCommand({
 			id: "convert-between-formats",
 			name: "Convert between Markdown and HTML ruby syntaxes",
-			checkCallback: (checking: boolean) => {
-				const markdownView: MarkdownView | null =
-					this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (!markdownView) return false;
-				if (markdownView.getMode() !== "source") return false;
-				const editor: Editor = markdownView.editor;
-				if (!editor) return false;
+			editorCheckCallback: (checking: boolean, editor: Editor, _) => {
 				if (!checking) {
 					const fullText: string = editor.getValue();
 					const convertedText: string = transformRubyBlocks(
