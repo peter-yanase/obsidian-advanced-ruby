@@ -2,7 +2,7 @@
 	<picture>
 		<source media="(prefers-color-scheme: dark)" srcset="./assets/logo_on_dark.svg">
 		<source media="(prefers-color-scheme: light)" srcset="./assets/logo_on_light.svg">
-		<img alt="Advanced Ruby logo">
+		<img alt="Advanced Ruby logo" src="./assets/logo_default.svg">
 	</picture>
 </p>
 
