@@ -30,10 +30,17 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 ## Design choices
 
 - Markdown and HTML inside ruby annotations are not supported
-- Live Preview is not supported
+- Live Preview is not supported (for now)
 	- To preview ruby while editing, open a second pane in reading mode
 
- ## Acknowledgments
+## Roadmap
+
+- [ ] Settings tab
+- [ ] Live preview
+- [ ] New conversion logic
+- [ ] Mobile-friendly and mouse-friendly UI adjustments
+
+## Acknowledgments
 
 Standing on the shoulders of giants:
 
