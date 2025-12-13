@@ -32,7 +32,16 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 
 - Markdown and HTML inside ruby annotations are not supported
 
- ## Acknowledgments
+## Roadmap
+
+- [ ] Settings tab
+- [ ] Live preview
+  - [X] Basic implementation
+  - [ ] Code block skipping
+- [ ] New conversion logic
+- [X] Mobile-friendly and mouse-friendly UI adjustments
+
+## Acknowledgments
 
 Standing on the shoulders of giants:
 
