@@ -1,20 +1,21 @@
 import { Plugin, Editor, Notice, Menu } from "obsidian";
-import { transformRubyBlocks } from "./utils";
-import { addMDRubyWrapper } from "./rubywrapper";
+import { transformRubyBlocks } from "../utils/utils";
+import { addMDRubyWrapper } from "../utils/rubywrapper";
 
 export function addCommands(plugin: Plugin) {
-	commandWrap(plugin);
+	cmdWrap(plugin);
 	clickWrap(plugin);
-	commandConvert(plugin);
+	cmdConvert(plugin);
 }
 
-function commandConvert(plugin: Plugin) {
+function cmdConvert(plugin: Plugin) {
 	plugin.addCommand({
 		id: "convert-between-formats",
 		name: "Convert between Markdown and HTML ruby syntaxes",
+		icon: "replace-all",
 		editorCheckCallback: (checking: boolean, editor: Editor, _) => {
 			if (!checking) {
-				const fullText: string = editor.getValue();
+				const fullText: string = editor.getValue(); // TODO MOVE
 				const convertedText: string = transformRubyBlocks(
 					fullText,
 					true,
@@ -27,10 +28,11 @@ function commandConvert(plugin: Plugin) {
 	});
 }
 
-function commandWrap(plugin: Plugin) {
+function cmdWrap(plugin: Plugin) {
 	plugin.addCommand({
 		id: "add-md-ruby-wrapper",
 		name: "Wrap in Markdown ruby syntax",
+		icon: "braces",
 		editorCheckCallback: (checking: boolean, editor: Editor, _) => {
 			const selection: string = editor.getSelection();
 			if (!selection) return false;

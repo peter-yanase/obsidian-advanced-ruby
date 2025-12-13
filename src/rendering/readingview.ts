@@ -1,4 +1,4 @@
-import { transformRubyBlocks } from "./utils";
+import { transformRubyBlocks } from "../utils/utils";
 import { sanitizeHTMLToDom } from "obsidian";
 
 export const notRendering: Set<string> = new Set(["CODE", "PRE"]);

@@ -24,14 +24,13 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 - Granular style settings via the [Obsidian Style Settings Plugin](https://github.com/mgmeyers/obsidian-style-settings) (up to two layers)
 - Non-destructive rendering
 - Support for complex nested markup
+- Intuitive UI
 
 <img src="./assets/sample.png">
 
 ## Design choices
 
 - Markdown and HTML inside ruby annotations are not supported
-- Live Preview is not supported
-	- To preview ruby while editing, open a second pane in reading mode
 
  ## Acknowledgments
 
