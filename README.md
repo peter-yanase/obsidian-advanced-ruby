@@ -34,12 +34,12 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 
 ## Roadmap
 
+- [ ] Disable rendering in source mode
 - [ ] Settings tab
-- [ ] Live preview
-  - [X] Basic implementation
-  - [ ] Code block skipping
-- [ ] New conversion logic
-- [X] Mobile-friendly and mouse-friendly UI adjustments
+- [ ] Code block skipping
+  - [X] Reading view
+  - [ ] Editing view
+  - [ ] During conversion
 
 ## Acknowledgments
 
