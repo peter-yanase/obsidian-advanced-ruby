@@ -1,6 +1,9 @@
 export const MDRubyRegex: RegExp = /{([^{]+?)\|(.+?)}/g;
 export const HTMLRubyRegex: RegExp = /<ruby>(.+?)<rt>(.+?)<\/rt><\/ruby>/g;
 
+const notRenderingRegex =
+	/(`[^`]+`|```[\s\S]*?```|<code>[\s\S]*?<\/code>|<pre>[\s\S]*?<\/pre>)/g;
+
 export function transformRubyBlocks(
 	originalText: string,
 	autoDetectRuby: boolean = false,
@@ -12,7 +15,17 @@ export function transformRubyBlocks(
 	let regex: RegExp = MDRubyRegex;
 	let direction: string = "md-to-html";
 
-	if (autoDetectRuby && !MDRubyRegex.test(originalText)) {
+	// Extract protected spans
+	const protectedSpans: string[] = [];
+	currentTextMutation = currentTextMutation.replace(
+		notRenderingRegex,
+		(match) => {
+			protectedSpans.push(match);
+			return `@@PROTECTED${protectedSpans.length - 1}@@`;
+		},
+	);
+
+	if (autoDetectRuby && !MDRubyRegex.test(currentTextMutation)) {
 		direction = "html-to-md";
 	}
 
@@ -45,6 +58,12 @@ export function transformRubyBlocks(
 	} while (
 		currentTextMutation !== previousTextMutation &&
 		mutationCount < maxMutations
+	);
+
+	// Restore protected spans
+	currentTextMutation = currentTextMutation.replace(
+		/@@PROTECTED(\d+)@@/g,
+		(_, i) => protectedSpans[+i],
 	);
 
 	return currentTextMutation;

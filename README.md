@@ -39,7 +39,7 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 - [ ] Code block skipping
   - [X] Reading view
   - [ ] Editing view
-  - [ ] During conversion
+  - [X] During conversion
 
 ## Acknowledgments
 

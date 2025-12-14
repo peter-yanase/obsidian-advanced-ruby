@@ -5,12 +5,10 @@ import { readingView } from "./rendering/readingview";
 import { editingView } from "./rendering/editingview";
 
 export default class AdvancedRuby extends Plugin {
-
 	async onload() {
-
 		this.registerMarkdownPostProcessor(readingView);
 
-    this.registerEditorExtension(editingView);
+		this.registerEditorExtension(editingView);
 
 		this.registerEditorExtension(ARKeymap);
 
