@@ -15,6 +15,8 @@ In reading mode, it renders markdown ruby syntax (`{base|ruby}`) into HTML ruby 
 
 In editing mode, you can insert Markdown ruby wrappers and convert between Markdown and HTML ruby syntaxes.
 
+(IMPORTANT: Do not use version 1.0.4 or 1.0.5)
+
 ## Features
 
 - Fast and efficient parsing
