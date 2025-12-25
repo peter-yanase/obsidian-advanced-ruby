@@ -63,7 +63,7 @@ export function transformRubyBlocks(
 	// Restore protected spans
 	currentTextMutation = currentTextMutation.replace(
 		/@@PROTECTED(\d+)@@/g,
-		(_, i) => protectedSpans[+i],
+		(_, i) => protectedSpans[+i]!,
 	);
 
 	return currentTextMutation;
