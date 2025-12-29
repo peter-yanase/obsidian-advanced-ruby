@@ -1,7 +1,7 @@
 {
 	"id": "advanced-ruby",
 	"name": "Advanced Ruby",
-	"version": "1.0.7",
+	"version": "1.1.0",
 	"minAppVersion": "1.9.14",
 	"description": "Enable complex, language-independent ruby annotation rendering.",
 	"author": "Peter Yanase",

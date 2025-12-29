@@ -1,6 +1,6 @@
 {
 	"name": "advanced-ruby",
-	"version": "1.0.7",
+	"version": "1.1.0",
 	"description": "Flexible, language-independent ruby annotation rendering.",
 	"main": "main.js",
 	"type": "module",
