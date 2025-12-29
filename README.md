@@ -4,11 +4,11 @@
 
 ---
 
-Advanced Ruby provides robust, language‑independent ruby annotation rendering and editing for [Obsidian](https://github.com/obsidianmd).
+Advanced Ruby enables complex, language-independent ruby annotation rendering and editing for [Obsidian](https://github.com/obsidianmd).
 
-While ruby is commonly used to show the pronunciation of Japanese and other East Asian characters, it can be applied to annotate any kind of text.
+While ruby is commonly used to show the pronunciation of Japanese and other East Asian characters, it can be used to annotate any kind of text.
 
-This plugin supports the full range of Unicode, making it suitable not only for phonetic guides but also for semantic glosses and layered annotations.
+This plugin supports the full range of Unicode, making it suitable not only for phonetic guides but also for semantic glosses or layered annotations.
 
 It renders Markdown ruby syntax (`{base|ruby}`) as HTML ruby tags (`<ruby>base<rt>ruby</rt></ruby>`) without modifying your notes.
 
@@ -16,24 +16,24 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 
 ## Features
 
-- Fast and efficient parsing  
-- Skips code blocks automatically  
-- Command to wrap selected text in ruby syntax or insert an empty wrapper  
-- Context menu option for wrapping selected text  
-- Command to convert between Markdown and HTML ruby syntaxes  
-- Touch support for mobile  
-- Granular style customization via the [Obsidian Style Settings plugin](https://github.com/mgmeyers/obsidian-style-settings) (supports up to two layers)  
-- Non‑destructive rendering  
-- Support for complex nested markup  
-- Intuitive UI  
+- Fast and efficient parsing
+- Code block skipping
+- Command to wrap selected text in ruby syntax or insert an empty wrapper
+- Context menu option for wrapping selected text
+- Command to convert between Markdown and HTML ruby syntaxes
+- Touch support for mobile
+- Granular style customization via the [Obsidian Style Settings Plugin](https://github.com/mgmeyers/obsidian-style-settings) (up to two layers)
+- Non-destructive rendering
+- Support for complex nested markup
+- Intuitive UI
 
 ## How to Use
 
-- Use the wrapper command to wrap selected text or insert an empty wrapper. You can also use the context menu, or simply write ruby markup manually.  
-- Ruby annotations render in reading and editing modes, but not in source mode. Ruby inside code blocks or inline code will not render.  
-- To edit an existing ruby annotation, click on it or move the cursor into it using the left and right arrow keys.  
-- If smart arrows are enabled, the cursor will jump over ruby annotations without unwrapping them. Press the arrow key in the opposite direction after a jump to edit the skipped annotation. You can disable smart arrows if you prefer ruby to unwrap on cursor contact. (Note: smart arrows may slightly slow cursor movement.)  
-- If the note contains any Markdown ruby, the conversion command will convert them to HTML. If the note contains only HTML ruby, the command will convert all of them to Markdown ruby.  
+- Use the wrapper command to wrap the selected text or insert an empty wrapper. You can also use the context menu to wrap seleted text. Alternatively, write ruby markup manually.
+- The plugin will render ruby in reading and editing mode but not in source mode. Ruby in code blocks or inline code will not render.
+- To edit existing annotation, click on it or step into it with the left and right arrow keys.
+- If smart arrows are enabled, the cursor will jump over ruby without unwrapping them. Press the arrow key in the opposite direction after a jump to edit the skipped annotation. You can disable smart arrows if you prefer ruby to unwrap on cursor contact. (Note: smart arrows slightly slow cursor movement.)
+- If the note contains any Markdown ruby, the conversion command will convert them to HTML. If the note contains only HTTML ruby, the command will convert all of them to Markdown ruby.
 
 <img src="./assets/sample.png">
 
@@ -43,12 +43,12 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 
 ## Roadmap
 
-- This plugin is considered feature‑complete. No new features are planned beyond maintenance.  
+- This plugin is considered feature-complete. No new features are planned beyond maintenance.
 - Feature requests, bug reports, and pull requests are welcome.
 
-## Security
+## Security Concerns
 
-- This plugin does not store or transmit any data and requires no internet connection.  
+- This plugin does not store or transmit any data and requires no internet connection.
 - I use this plugin daily and fix issues as I encounter them. If you prefer a version reviewed by the Obsidian team, use version 1.03.
 
 ## Acknowledgments
