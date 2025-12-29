@@ -37,6 +37,8 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 ## Roadmap
 
 - [ ] Settings tab
+- [ ] Rendering multiple layers in editing view
+- [ ] Caching
 
 ## Acknowledgments
 
