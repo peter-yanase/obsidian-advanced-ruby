@@ -1,3 +1,7 @@
+import { EditorView } from "@codemirror/view";
+import { syntaxTree } from "@codemirror/language";
+import { editorLivePreviewField } from "obsidian";
+
 export const MDRubyRegex: RegExp = /{([^{]+?)\|(.+?)}/g;
 export const HTMLRubyRegex: RegExp = /<ruby>(.+?)<rt>(.+?)<\/rt><\/ruby>/g;
 
@@ -68,3 +72,27 @@ export function transformRubyBlocks(
 
 	return currentTextMutation;
 }
+
+export function isInsideCode(view: EditorView, pos: number): boolean {
+	let insideCode: boolean = false;
+
+	syntaxTree(view.state).iterate({
+		from: pos,
+		to: pos + 1,
+		enter: (node) => {
+			if (node.name.includes("code")) {
+				insideCode = true;
+			}
+		},
+	});
+	return insideCode;
+}
+
+export function isSourceMode(view: EditorView): boolean {
+	const sourceMode: boolean = view.state.field(editorLivePreviewField)
+		? false
+		: true;
+	return sourceMode
+}
+
+
