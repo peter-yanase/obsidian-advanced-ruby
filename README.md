@@ -14,6 +14,8 @@ It renders Markdown ruby syntax (`{base|ruby}`) as HTML ruby tags (`<ruby>base<r
 
 In editing mode, you can insert Markdown ruby wrappers and convert between Markdown and HTML ruby syntaxes.
 
+<img src="./assets/sample.png">
+
 ## Features
 
 - Fast and efficient parsing
@@ -29,13 +31,11 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 
 ## How to Use
 
-- Use the wrapper command to wrap the selected text or insert an empty wrapper. You can also use the context menu to wrap seleted text. Alternatively, write ruby markup manually.
-- The plugin will render ruby in reading and editing mode but not in source mode. Ruby in code blocks or inline code will not render.
+- Use the wrapper command to wrap the selected text or insert an empty wrapper. You can also use the context menu to wrap selected text. Alternatively, write ruby markup manually.
+- The plugin will render ruby in reading and editing mode but show raw markup in source mode. Ruby in code blocks or inline code will stay raw.
 - To edit existing annotation, click on it or step into it with the left and right arrow keys.
-- If smart arrows are enabled, the cursor will jump over ruby without unwrapping them. Press the arrow key in the opposite direction after a jump to edit the skipped annotation. You can disable smart arrows if you prefer ruby to unwrap on cursor contact. (Note: smart arrows slightly slow cursor movement.)
+- If smart arrows keys are enabled, the cursor will jump over ruby without revealing the raw markup. Press the arrow key in the opposite direction after a jump to edit the skipped text. You can disable smart arrows keys if you prefer to reveal the raw markup on cursor contact. (Note: smart arrow keys slightly slow cursor movement.)
 - If the note contains any Markdown ruby, the conversion command will convert them to HTML. If the note contains only HTTML ruby, the command will convert all of them to Markdown ruby.
-
-<img src="./assets/sample.png">
 
 ## Design Choices
 
@@ -46,7 +46,7 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 - This plugin is considered feature-complete. No new features are planned beyond maintenance.
 - Feature requests, bug reports, and pull requests are welcome.
 
-## Security Concerns
+## Security
 
 - This plugin does not store or transmit any data and requires no internet connection.
 - I use this plugin daily and fix issues as I encounter them. If you prefer a version reviewed by the Obsidian team, use version 1.03.
