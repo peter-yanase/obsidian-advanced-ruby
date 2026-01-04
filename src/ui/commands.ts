@@ -15,7 +15,7 @@ function cmdConvert(plugin: Plugin) {
 		icon: "replace-all",
 		editorCheckCallback: (checking: boolean, editor: Editor, _) => {
 			if (!checking) {
-				const fullText: string = editor.getValue(); // TODO MOVE
+				const fullText: string = editor.getValue();
 				const convertedText: string = transformRubyBlocks(
 					fullText,
 					true,

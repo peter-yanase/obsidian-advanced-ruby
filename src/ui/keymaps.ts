@@ -1,5 +1,5 @@
 import { keymap, EditorView } from "@codemirror/view";
-import { Compartment, EditorSelection } from "@codemirror/state";
+import { Compartment, EditorSelection, Text } from "@codemirror/state";
 import { isInsideCode, isSourceMode, MDRubyRegex } from "../utils/utils";
 
 export const ARKeymapCompartment = new Compartment();
@@ -9,32 +9,30 @@ export const ARKeymap = keymap.of([
 	{ key: "ArrowLeft", run: jumpRubyLeft },
 ]);
 
+const searchWindow: number = 20;
 let lastJump: "" | "left" | "right" = "";
+
+function noJump() {
+	lastJump = "";
+	return false;
+}
 
 function jumpRubyRight(view: EditorView) {
 	if (isSourceMode(view)) return false;
-	const pos = view.state.selection.main.head;
+	const pos: number = view.state.selection.main.head;
 	if (isInsideCode(view, pos)) return false;
-	const doc = view.state.doc;
-	if (doc.sliceString(pos, pos + 1) !== "{") {
-		lastJump = "";
-		return false;
-	}
-	const end = Math.min(doc.length, pos + 100);
-	const slice = doc.sliceString(pos, end);
+	const doc: Text = view.state.doc;
+	const isRubyStart: boolean = doc.sliceString(pos, pos + 1) === "{";
+	if (!isRubyStart) return noJump();
+	const end: number = Math.min(doc.length, pos + searchWindow);
+	const slice: string = doc.sliceString(pos, end);
 	MDRubyRegex.lastIndex = 0;
-	const match = MDRubyRegex.exec(slice);
-	if (!match) {
-		lastJump = "";
-		return false;
-	}
-	const from = pos + match.index;
-	if (from !== pos) {
-		lastJump = "";
-		return false;
-	}
-	const to = from + match[0].length;
-	const backJump = lastJump === "left";
+	const match: RegExpExecArray | null = MDRubyRegex.exec(slice);
+	if (!match) return noJump();
+	const from: number = pos + match.index;
+	if (from !== pos) return noJump();
+	const to: number = from + match[0].length;
+	const backJump: boolean = lastJump === "left";
 	lastJump = "right";
 	view.dispatch({
 		selection: EditorSelection.cursor(
@@ -47,25 +45,21 @@ function jumpRubyRight(view: EditorView) {
 
 function jumpRubyLeft(view: EditorView) {
 	if (isSourceMode(view)) return false;
-	const pos = view.state.selection.main.head;
-	if (pos === 0) {
-		lastJump = "";
-		return false;
-	}
-	const doc = view.state.doc;
-	if (doc.sliceString(pos - 1, pos) !== "}") {
-		lastJump = "";
-		return false;
-	}
-	const start = Math.max(0, pos - 100);
-	const slice = doc.sliceString(start, pos);
+	const pos: number = view.state.selection.main.head;
+	if (pos === 0) return noJump();
+	if (isInsideCode(view, pos)) return false;
+	const doc: Text = view.state.doc;
+	const isRubyEnd: boolean = doc.sliceString(pos - 1, pos) === "}";
+	if (!isRubyEnd) noJump();
+	const start: number = Math.max(0, pos - searchWindow);
+	const slice: string = doc.sliceString(start, pos);
 	MDRubyRegex.lastIndex = 0;
-	let match;
-	while ((match = MDRubyRegex.exec(slice)) !== null) {
-		const from = start + match.index;
-		const to = from + match[0].length;
+	let match: RegExpExecArray | null;
+	for (const match of slice.matchAll(MDRubyRegex)) {
+		const from: number = start + match.index;
+		const to: number = from + match[0].length;
 		if (to === pos) {
-			const backJump = lastJump === "right";
+			const backJump: boolean = lastJump === "right";
 			lastJump = "left";
 			view.dispatch({
 				selection: EditorSelection.cursor(
@@ -76,6 +70,5 @@ function jumpRubyLeft(view: EditorView) {
 			return true;
 		}
 	}
-	lastJump = "";
-	return false;
+	return noJump();
 }

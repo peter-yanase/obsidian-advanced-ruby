@@ -6,9 +6,9 @@ export interface RubyMatch {
 }
 
 export interface ARSettings {
-	smartarrows: boolean
+	smartarrows: boolean;
 }
 
 export const DEFAULT_SETTINGS: ARSettings = {
-	smartarrows: true
+	smartarrows: true,
 };

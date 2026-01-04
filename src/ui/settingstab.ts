@@ -20,7 +20,7 @@ export class ARSettingTab extends PluginSettingTab {
 		new Setting(containerEl)
 			.setName("Smart arrows keys")
 			.setDesc(
-				"Jump over MD ruby in editing mode. Press the opposite arrow after a jump to edit ruby.",
+				"Jump over Markdown ruby in editing mode. Press the opposite arrow after a jump to edit ruby.",
 			)
 			.addToggle((c) =>
 				c
@@ -32,7 +32,7 @@ export class ARSettingTab extends PluginSettingTab {
 						for (const leaf of this.plugin.app.workspace.getLeavesOfType(
 							"markdown",
 						)) {
-							// @ts-ignore
+							// @ts-expect-error, not typed
 							const cm = (leaf.view as MarkdownView).editor.cm;
 							cm?.dispatch({
 								effects:

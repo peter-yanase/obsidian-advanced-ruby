@@ -1,7 +1,7 @@
 import { transformRubyBlocks } from "../utils/utils";
 import { sanitizeHTMLToDom } from "obsidian";
 
-export const notRendering: Set<string> = new Set(["CODE", "PRE"]);
+const notRendering: Set<string> = new Set(["CODE", "PRE"]);
 
 export function readingView(element: HTMLElement) {
 	// Skip early if no curly brackets

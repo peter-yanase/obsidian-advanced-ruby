@@ -6,7 +6,7 @@ export const MDRubyRegex: RegExp = /{([^{]+?)\|(.+?)}/g;
 export const HTMLRubyRegex: RegExp = /<ruby>(.+?)<rt>(.+?)<\/rt><\/ruby>/g;
 
 const notRenderingRegex =
-	/(`[^`]+`|```[\s\S]*?```|<code>[\s\S]*?<\/code>|<pre>[\s\S]*?<\/pre>)/g;
+	/(`[^`]+?`|```[\s\S]+?```|<code>[\s\S]+?<\/code>|<pre>[\s\S]+?<\/pre>)/g;
 
 export function transformRubyBlocks(
 	originalText: string,
@@ -17,7 +17,7 @@ export function transformRubyBlocks(
 	let previousTextMutation: string;
 	let mutationCount: number = 0;
 	let regex: RegExp = MDRubyRegex;
-	let direction: string = "md-to-html";
+	let direction: "md-to-html" | "html-to-md" = "md-to-html";
 
 	// Extract protected spans
 	const protectedSpans: string[] = [];
@@ -69,7 +69,6 @@ export function transformRubyBlocks(
 		/@@PROTECTED(\d+)@@/g,
 		(_, i) => protectedSpans[+i]!,
 	);
-
 	return currentTextMutation;
 }
 
@@ -89,10 +88,5 @@ export function isInsideCode(view: EditorView, pos: number): boolean {
 }
 
 export function isSourceMode(view: EditorView): boolean {
-	const sourceMode: boolean = view.state.field(editorLivePreviewField)
-		? false
-		: true;
-	return sourceMode
+	return !view.state.field(editorLivePreviewField);
 }
-
-
