@@ -55,8 +55,8 @@ function parseRuby(text: string, offset: number = 0): RubyMatch[] {
 
 		const pipeIndex: number | void = findAtDepth("|", 0, braceContent, 0);
 
-		if (pipeIndex) {
-			// This is a ruby block
+		if (pipeIndex && !braceContent.endsWith("|")) {
+			// This is a valid ruby block
 			results.push({
 				start: offset + openingBraceIndex,
 				end: offset + closingBraceIndex + 1,
@@ -65,6 +65,7 @@ function parseRuby(text: string, offset: number = 0): RubyMatch[] {
 			});
 		} else {
 			// No top-level pipe = normal braces
+			// Brace content ends with pipe = empty syntax
 			// But it may contain ruby blocks, so recurse
 			results.push(
 				...parseRuby(braceContent, offset + openingBraceIndex + 1),
