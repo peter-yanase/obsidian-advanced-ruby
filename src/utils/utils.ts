@@ -11,7 +11,7 @@ const notRenderingRegex =
 export function transformRubyBlocks(
 	originalText: string,
 	autoDetectRuby: boolean = false,
-): string {
+): { text: string; direction: "md-to-html" | "html-to-md" } {
 	let maxMutations: number = 5;
 	let currentTextMutation: string = originalText;
 	let previousTextMutation: string;
@@ -47,7 +47,7 @@ export function transformRubyBlocks(
 			regex = HTMLRubyRegex;
 			break;
 		default:
-			return originalText;
+			return { text: originalText, direction };
 	}
 
 	do {
@@ -69,7 +69,7 @@ export function transformRubyBlocks(
 		/@@PROTECTED(\d+)@@/g,
 		(_, i) => protectedSpans[+i]!,
 	);
-	return currentTextMutation;
+	return { text: currentTextMutation, direction };
 }
 
 export function isInsideCode(view: EditorView, pos: number): boolean {

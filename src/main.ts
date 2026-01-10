@@ -1,6 +1,6 @@
 import { Plugin } from "obsidian";
 import { addCommands } from "./ui/commands";
-import { ARKeymap, ARKeymapCompartment } from "./ui/keymaps";
+import { ARKeymap } from "./ui/keymaps";
 import { ARSettingTab } from "./ui/settingstab";
 import { readingView } from "./rendering/readingview";
 import { editingView } from "./rendering/editingview";
@@ -30,9 +30,7 @@ export default class AdvancedRuby extends Plugin {
 
 		this.registerEditorExtension(editingView);
 
-		this.registerEditorExtension(
-			ARKeymapCompartment.of(this.settings.smartarrows ? ARKeymap : []),
-		);
+		this.registerEditorExtension(ARKeymap(this));
 
 		addCommands(this);
 	}

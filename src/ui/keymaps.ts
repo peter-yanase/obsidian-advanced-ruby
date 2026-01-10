@@ -1,13 +1,28 @@
 import { keymap, EditorView } from "@codemirror/view";
-import { Compartment, EditorSelection, Text } from "@codemirror/state";
+import { EditorSelection, Prec, Text } from "@codemirror/state";
 import { isInsideCode, isSourceMode, MDRubyRegex } from "../utils/utils";
+import AdvancedRuby from "main";
 
-export const ARKeymapCompartment = new Compartment();
-
-export const ARKeymap = keymap.of([
-	{ key: "ArrowRight", run: jumpRubyRight },
-	{ key: "ArrowLeft", run: jumpRubyLeft },
-]);
+export function ARKeymap(plugin: AdvancedRuby) {
+	return Prec.highest(
+		keymap.of([
+			{
+				key: "ArrowRight",
+				run: (view) => {
+					if (!plugin.settings.smartarrows) return false;
+					return jumpRubyRight(view);
+				},
+			},
+			{
+				key: "ArrowLeft",
+				run: (view) => {
+					if (!plugin.settings.smartarrows) return false;
+					return jumpRubyLeft(view);
+				},
+			},
+		]),
+	);
+}
 
 const searchWindow: number = 20;
 let lastJump: "" | "left" | "right" = "";

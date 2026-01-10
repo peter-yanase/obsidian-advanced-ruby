@@ -2,6 +2,7 @@ import { Plugin, Editor, Notice, Menu } from "obsidian";
 import { transformRubyBlocks } from "../utils/utils";
 import { addMDRubyWrapper } from "../utils/rubywrapper";
 
+// Wrapper function
 export function addCommands(plugin: Plugin) {
 	cmdWrap(plugin);
 	clickWrap(plugin);
@@ -12,16 +13,28 @@ function cmdConvert(plugin: Plugin) {
 	plugin.addCommand({
 		id: "convert-between-formats",
 		name: "Convert between Markdown and HTML ruby syntaxes",
-		icon: "replace-all",
-		editorCheckCallback: (checking: boolean, editor: Editor, _) => {
+		icon: "replace-all", // Needed for mobile
+		editorCheckCallback: (checking: boolean, editor: Editor) => {
 			if (!checking) {
+				// Get the text of the whole document
 				const fullText: string = editor.getValue();
-				const convertedText: string = transformRubyBlocks(
+
+				// Mutate text
+				const { text: convertedText, direction } = transformRubyBlocks(
 					fullText,
+					// Detect syntax type
 					true,
 				);
+
+				// Replace text
 				editor.setValue(convertedText);
-				new Notice("Ruby blocks converted successfully.");
+
+				// Send feedback to the user
+				if (direction === "html-to-md") {
+					new Notice("Converted HTML ruby to Markdown.");
+				} else {
+					new Notice("Converted Markdown ruby to HTML.");
+				}
 			}
 			return true;
 		},
@@ -33,7 +46,7 @@ function cmdWrap(plugin: Plugin) {
 		id: "add-md-ruby-wrapper",
 		name: "Wrap in Markdown ruby syntax",
 		icon: "braces",
-		editorCheckCallback: (checking: boolean, editor: Editor, _) => {
+		editorCheckCallback: (checking: boolean, editor: Editor) => {
 			const selection: string = editor.getSelection();
 			if (!selection) return false;
 			if (!checking) {

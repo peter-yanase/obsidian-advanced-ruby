@@ -1,6 +1,5 @@
-import { App, MarkdownView, PluginSettingTab, Setting } from "obsidian";
+import { App, PluginSettingTab, Setting } from "obsidian";
 import AdvancedRuby from "../main";
-import { ARKeymapCompartment, ARKeymap } from "../ui/keymaps";
 
 export class ARSettingTab extends PluginSettingTab {
 	plugin: AdvancedRuby;
@@ -22,23 +21,12 @@ export class ARSettingTab extends PluginSettingTab {
 			.setDesc(
 				"Jump over Markdown ruby in editing mode. Press the opposite arrow after a jump to edit ruby.",
 			)
-			.addToggle((c) =>
-				c
+			.addToggle((component) =>
+				component
 					.setValue(this.plugin.settings.smartarrows)
-					.onChange(async (v) => {
-						this.plugin.settings.smartarrows = v;
+					.onChange(async (value) => {
+						this.plugin.settings.smartarrows = value;
 						await this.plugin.saveSettings();
-						const newKeymap = v ? ARKeymap : [];
-						for (const leaf of this.plugin.app.workspace.getLeavesOfType(
-							"markdown",
-						)) {
-							// @ts-expect-error, not typed
-							const cm = (leaf.view as MarkdownView).editor.cm;
-							cm?.dispatch({
-								effects:
-									ARKeymapCompartment.reconfigure(newKeymap),
-							});
-						}
 					}),
 			);
 	}
