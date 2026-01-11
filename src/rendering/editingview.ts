@@ -140,7 +140,7 @@ class RubyWidget extends WidgetType {
 		const rubyEl: HTMLElement = document.createElement("ruby");
 		// Render nested ruby first
 		for (const node of baseNodes) rubyEl.appendChild(node);
-		// Add the parent's annotatation
+		// Add the parent's annotation
 		const rtEl: HTMLElement = document.createElement("rt");
 		rtEl.textContent = ruby;
 		rubyEl.appendChild(rtEl);
@@ -150,8 +150,11 @@ class RubyWidget extends WidgetType {
 
 class ARViewPlugin implements PluginValue {
 	decorations: DecorationSet;
+	// Cached ruby matches for the current viewport
+	private rubyMatches: RubyMatch[] = [];
 
 	constructor(view: EditorView) {
+		this.updateRubyMatches(view);
 		this.decorations = this.buildDecorations(view);
 	}
 
@@ -161,38 +164,53 @@ class ARViewPlugin implements PluginValue {
 			return;
 		}
 
-		if (
-			update.docChanged ||
-			update.viewportChanged ||
-			update.selectionSet
-		) {
+		let needRebuild = false;
+
+		// Re-parse when the document or viewport changes
+		if (update.docChanged || update.viewportChanged) {
+			this.updateRubyMatches(update.view);
+			needRebuild = true;
+		}
+
+		// Do not re-parse on selection move
+		if (update.selectionSet) {
+			needRebuild = true;
+		}
+
+		if (needRebuild) {
 			this.decorations = this.buildDecorations(update.view);
 		}
 	}
 
-	private buildDecorations(view: EditorView): DecorationSet {
-		const builder = new RangeSetBuilder<Decoration>();
-		const cursorPos: number = view.state.selection.main.head;
+	private updateRubyMatches(view: EditorView): void {
+		const matches: RubyMatch[] = [];
 
 		for (let { from, to } of view.visibleRanges) {
 			const text: string = view.state.sliceDoc(from, to);
 
 			const rubyMatches: RubyMatch[] = parseRuby(text, from);
+			matches.push(...rubyMatches);
+		}
 
-			for (const { start, end, base, ruby } of rubyMatches) {
-				if (
-					isInsideCode(view, start) ||
-					this.isCursorInside(start, end, cursorPos) ||
-					this.isMultiLine(view, start, end)
-				)
-					continue;
+		this.rubyMatches = matches;
+	}
 
-				builder.add(
-					start,
-					end,
-					Decoration.replace({ widget: new RubyWidget(base, ruby) }),
-				);
-			}
+	private buildDecorations(view: EditorView): DecorationSet {
+		const builder = new RangeSetBuilder<Decoration>();
+		const cursorPos: number = view.state.selection.main.head;
+		for (const { start, end, base, ruby } of this.rubyMatches) {
+			if (
+				isInsideCode(view, start) ||
+				this.isCursorInside(start, end, cursorPos) ||
+				this.isMultiLine(view, start, end)
+			)
+				continue;
+
+			builder.add(
+				start,
+				end,
+				Decoration.replace({ widget: new RubyWidget(base, ruby) }),
+			);
 		}
 		return builder.finish();
 	}
