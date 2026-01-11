@@ -185,13 +185,11 @@ class ARViewPlugin implements PluginValue {
 	private updateRubyMatches(view: EditorView): void {
 		const matches: RubyMatch[] = [];
 
-		for (let { from, to } of view.visibleRanges) {
+		for (const { from, to } of view.visibleRanges) {
 			const text: string = view.state.sliceDoc(from, to);
 
-			const rubyMatches: RubyMatch[] = parseRuby(text, from);
-			matches.push(...rubyMatches);
+			matches.push(...parseRuby(text, from));
 		}
-
 		this.rubyMatches = matches;
 	}
 
