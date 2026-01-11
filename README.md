@@ -49,22 +49,22 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 ## Security
 
 - This plugin does not store or transmit any data and requires no internet connection.
-- I use this plugin daily and fix issues as I encounter them. If you prefer a version reviewed by the Obsidian team, use version 1.03.
+- I use this plugin daily and fix issues as I encounter them. If you prefer a version reviewed by the Obsidian team, use version 1.0.3.
 
 ## Licenses & Acknowledgments
 
-Advanced Ruby starting from version 1.0.7 is available under the GPL-3 License. Advanced Ruby up to version 1.0.6 is available under the MIT License. Copyright (c) 2025  Peter Yanase
+Advanced Ruby starting from version 1.0.7 is available under the GPL-3 License. Advanced Ruby up to version 1.0.6 is available under the MIT License. Copyright (c) 2025-2026  Peter Yanase
 
 This project includes code derived from:
 
-- Markdown Furigana Plugin (Obsidian) (https://github.com/steven-kraft/obsidian-markdown-furigana), licensed under the MIT License. Copyright (c) 2021-2025 Steven Kraft.
+- Markdown Furigana Plugin (Obsidian) (https://github.com/steven-kraft/obsidian-markdown-furigana), licensed under the MIT License. Copyright (c) 2021-2026 Steven Kraft.
 
-- Obsidian Furigana (https://github.com/uonr/obsidian-furigana), licensed under the MIT License. Copyright (c) 2021-2025 Koppa.
+- Obsidian Furigana (https://github.com/uonr/obsidian-furigana), licensed under the MIT License. Copyright (c) 2021-2026 Koppa.
 
-- Japanese Novel Ruby Plugin for Obsidian (https://github.com/k-quels/japanese-novel-ruby), licensed under the MIT License. Copyright (c) 2024-2025 quels <@k-quels>.
+- Japanese Novel Ruby Plugin for Obsidian (https://github.com/k-quels/japanese-novel-ruby), licensed under the MIT License. Copyright (c) 2024-2026 quels <@k-quels>.
 
-- Mahgen Renderer (https://github.com/MichaelFW-ui/mahgen-renderer), licensed under the MIT License. Copyright (c) 2024-2025 Michael Francis Williams.
+- Mahgen Renderer (https://github.com/MichaelFW-ui/mahgen-renderer), licensed under the MIT License. Copyright (c) 2024-2026 Michael Francis Williams.
 
-- Obsidian Outliner (https://github.com/vslinko/obsidian-outliner), licensed under the MIT License. Copyright (c) 2021-2025 by Viacheslav Slinko.
+- Obsidian Outliner (https://github.com/vslinko/obsidian-outliner), licensed under the MIT License. Copyright (c) 2021-2026 by Viacheslav Slinko.
 
-- Obsidian Sample Plugin (https://github.com/obsidianmd/obsidian-sample-plugin), licensed under the OBSD License. Copyright (c) 2020-2025 by Dynalist Inc.
+- Obsidian Sample Plugin (https://github.com/obsidianmd/obsidian-sample-plugin), licensed under the OBSD License. Copyright (c) 2020-2026 by Dynalist Inc.
