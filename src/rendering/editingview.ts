@@ -21,7 +21,7 @@ function parseRuby(text: string, offset: number = 0): RubyMatch[] {
 		start: number,
 	): number | void {
 		for (let index: number = start; index < text.length; index++) {
-			const character = text[index];
+			const character: string | undefined = text[index];
 			if (character === "{") depth++;
 			else if (character === "}") depth--;
 			if (character === target && depth === 0) return index;
@@ -31,7 +31,6 @@ function parseRuby(text: string, offset: number = 0): RubyMatch[] {
 
 	let results: RubyMatch[] = [];
 	let scanIndex: number = 0;
-
 	while (scanIndex < text.length) {
 		// Skip until next opening brace
 		if (text[scanIndex] !== "{") {
@@ -52,9 +51,7 @@ function parseRuby(text: string, offset: number = 0): RubyMatch[] {
 			openingBraceIndex + 1,
 			closingBraceIndex,
 		);
-
 		const pipeIndex: number | void = findAtDepth("|", 0, braceContent, 0);
-
 		if (pipeIndex && !braceContent.endsWith("|")) {
 			// This is a valid ruby block
 			results.push({
@@ -71,8 +68,10 @@ function parseRuby(text: string, offset: number = 0): RubyMatch[] {
 				...parseRuby(braceContent, offset + openingBraceIndex + 1),
 			);
 		}
+
 		scanIndex = closingBraceIndex + 1;
 	}
+
 	return results;
 }
 
@@ -86,15 +85,16 @@ class RubyWidget extends WidgetType {
 	toDOM(view: EditorView) {
 		const baseNodes: Node[] = this.renderRubyText(this.base);
 		const rubyEl = this.createRubyElement(baseNodes, this.ruby);
+
 		// Move the cursor if clicked
 		rubyEl.addEventListener("click", () => {
 			view.dispatch({
 				selection: EditorSelection.cursor(
 					view.posAtDOM(rubyEl) + 2 + this.base.length,
 				),
-				scrollIntoView: true,
 			});
 		});
+
 		return rubyEl;
 	}
 
@@ -108,13 +108,12 @@ class RubyWidget extends WidgetType {
 			return nodes;
 		}
 
-		let cursor: number = 0;
-
+		let cursorPos: number = 0;
 		for (const match of matches) {
 			// Add the text before the match
-			if (match.start > cursor) {
+			if (match.start > cursorPos) {
 				nodes.push(
-					document.createTextNode(text.slice(cursor, match.start)),
+					document.createTextNode(text.slice(cursorPos, match.start)),
 				);
 			}
 
@@ -126,32 +125,41 @@ class RubyWidget extends WidgetType {
 				),
 			);
 
-			cursor = match.end;
+			cursorPos = match.end;
 		}
 
 		// Add the remaining text
-		if (cursor < text.length) {
-			nodes.push(document.createTextNode(text.slice(cursor)));
+		if (cursorPos < text.length) {
+			nodes.push(document.createTextNode(text.slice(cursorPos)));
 		}
+
 		return nodes;
 	}
 
 	private createRubyElement(baseNodes: Node[], ruby: string): HTMLElement {
 		const rubyEl: HTMLElement = document.createElement("ruby");
+
 		// Render nested ruby first
 		for (const node of baseNodes) rubyEl.appendChild(node);
+
 		// Add the parent's annotation
 		const rtEl: HTMLElement = document.createElement("rt");
 		rtEl.textContent = ruby;
 		rubyEl.appendChild(rtEl);
+
 		return rubyEl;
 	}
 }
 
 class ARViewPlugin implements PluginValue {
 	decorations: DecorationSet;
+
 	// Cached ruby matches for the current viewport
 	private rubyMatches: RubyMatch[] = [];
+
+	// Variables used to compare cursor positions
+	private lastCursorPos: number = 0;
+	private wasInsideRuby: boolean = false;
 
 	constructor(view: EditorView) {
 		this.updateRubyMatches(view);
@@ -159,22 +167,49 @@ class ARViewPlugin implements PluginValue {
 	}
 
 	update(update: ViewUpdate): void {
+		// Remove decorations in source mode
 		if (isSourceMode(update.view)) {
 			this.decorations = Decoration.none;
 			return;
 		}
 
-		let needRebuild = false;
+		let needRebuild: boolean = false;
 
-		// Re-parse when the document or viewport changes
+		// Re-parse & rebuild when the document or viewport changes
 		if (update.docChanged || update.viewportChanged) {
 			this.updateRubyMatches(update.view);
 			needRebuild = true;
 		}
 
-		// Do not re-parse on selection move
+		// Rebuild when entering or leaving a ruby
 		if (update.selectionSet) {
-			needRebuild = true;
+			const cursorPos: number = update.state.selection.main.head;
+
+			// Reset on jump
+			const jumped: boolean =
+				Math.abs(cursorPos - this.lastCursorPos) > 1;
+			if (jumped) {
+				this.wasInsideRuby = false;
+			}
+
+			const isInside: boolean = this.rubyMatches.some((match) => {
+				const view = update.view;
+				const start = match.start;
+				const end = match.end;
+				if (
+					!this.isCursorInside(start, end, cursorPos) ||
+					this.isMultiLine(view, start, end) ||
+					isInsideCode(view, start)
+				)
+					return false;
+				return true;
+			});
+
+			if (isInside !== this.wasInsideRuby) {
+				needRebuild = true;
+				this.wasInsideRuby = isInside;
+			}
+			this.lastCursorPos = cursorPos;
 		}
 
 		if (needRebuild) {
@@ -187,7 +222,6 @@ class ARViewPlugin implements PluginValue {
 
 		for (const { from, to } of view.visibleRanges) {
 			const text: string = view.state.sliceDoc(from, to);
-
 			matches.push(...parseRuby(text, from));
 		}
 		this.rubyMatches = matches;
@@ -198,9 +232,9 @@ class ARViewPlugin implements PluginValue {
 		const cursorPos: number = view.state.selection.main.head;
 		for (const { start, end, base, ruby } of this.rubyMatches) {
 			if (
-				isInsideCode(view, start) ||
 				this.isCursorInside(start, end, cursorPos) ||
-				this.isMultiLine(view, start, end)
+				this.isMultiLine(view, start, end) ||
+				isInsideCode(view, start)
 			)
 				continue;
 

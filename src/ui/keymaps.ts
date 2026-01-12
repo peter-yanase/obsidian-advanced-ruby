@@ -53,7 +53,6 @@ function jumpRubyRight(view: EditorView) {
 		selection: EditorSelection.cursor(
 			backJump ? to - match[2]!.length - 1 : to,
 		),
-		scrollIntoView: true,
 	});
 	return true;
 }
@@ -80,7 +79,6 @@ function jumpRubyLeft(view: EditorView) {
 				selection: EditorSelection.cursor(
 					backJump ? to - match[2]!.length - 1 : from,
 				),
-				scrollIntoView: true,
 			});
 			return true;
 		}
