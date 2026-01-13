@@ -157,9 +157,8 @@ class ARViewPlugin implements PluginValue {
 	// Cached ruby matches for the current viewport
 	private rubyMatches: RubyMatch[] = [];
 
-	// Variables used to compare cursor positions
-	private lastCursorPos: number = 0;
-	private wasInsideRuby: boolean = false;
+	// Variable used to compare cursor positions
+	private previousRubyStart: number | null = null;
 
 	constructor(view: EditorView) {
 		this.updateRubyMatches(view);
@@ -185,14 +184,9 @@ class ARViewPlugin implements PluginValue {
 		if (update.selectionSet) {
 			const cursorPos: number = update.state.selection.main.head;
 
-			// Reset on jump
-			const jumped: boolean =
-				Math.abs(cursorPos - this.lastCursorPos) > 1;
-			if (jumped) {
-				this.wasInsideRuby = false;
-			}
+			let currentRubyStart: number | null = null;
 
-			const isInside: boolean = this.rubyMatches.some((match) => {
+			this.rubyMatches.some((match) => {
 				const view = update.view;
 				const start = match.start;
 				const end = match.end;
@@ -202,14 +196,14 @@ class ARViewPlugin implements PluginValue {
 					isInsideCode(view, start)
 				)
 					return false;
+				currentRubyStart = start;
 				return true;
 			});
 
-			if (isInside !== this.wasInsideRuby) {
+			if (currentRubyStart !== this.previousRubyStart) {
 				needRebuild = true;
-				this.wasInsideRuby = isInside;
+				this.previousRubyStart = currentRubyStart;
 			}
-			this.lastCursorPos = cursorPos;
 		}
 
 		if (needRebuild) {
