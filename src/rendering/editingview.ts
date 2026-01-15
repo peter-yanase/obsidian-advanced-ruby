@@ -111,11 +111,10 @@ class RubyWidget extends WidgetType {
 		let cursorPos: number = 0;
 		for (const match of matches) {
 			// Add the text before the match
-			if (match.start > cursorPos) {
+			if (match.start > cursorPos)
 				nodes.push(
 					document.createTextNode(text.slice(cursorPos, match.start)),
 				);
-			}
 
 			// Add the ruby
 			nodes.push(
@@ -129,9 +128,8 @@ class RubyWidget extends WidgetType {
 		}
 
 		// Add the remaining text
-		if (cursorPos < text.length) {
+		if (cursorPos < text.length)
 			nodes.push(document.createTextNode(text.slice(cursorPos)));
-		}
 
 		return nodes;
 	}
@@ -157,6 +155,9 @@ class ARViewPlugin implements PluginValue {
 	// Cached ruby matches for the current viewport
 	private rubyMatches: RubyMatch[] = [];
 
+	// Flag for source mode
+	private wasInSourceMode: boolean = false;
+
 	// Variable used to compare cursor positions
 	private previousRubyStart: number | null = null;
 
@@ -168,11 +169,18 @@ class ARViewPlugin implements PluginValue {
 	update(update: ViewUpdate): void {
 		// Remove decorations in source mode
 		if (isSourceMode(update.view)) {
+			this.wasInSourceMode = true;
 			this.decorations = Decoration.none;
 			return;
 		}
 
 		let needRebuild: boolean = false;
+
+		// Rebuild after switching off source mode
+		if (this.wasInSourceMode) {
+			this.wasInSourceMode = false;
+			needRebuild = true;
+		}
 
 		// Re-parse & rebuild when the document or viewport changes
 		if (update.docChanged || update.viewportChanged) {
@@ -206,9 +214,7 @@ class ARViewPlugin implements PluginValue {
 			}
 		}
 
-		if (needRebuild) {
-			this.decorations = this.buildDecorations(update.view);
-		}
+		if (needRebuild) this.decorations = this.buildDecorations(update.view);
 	}
 
 	private updateRubyMatches(view: EditorView): void {

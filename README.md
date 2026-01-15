@@ -34,7 +34,7 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 - Use the wrapper command to wrap the selected text or insert an empty wrapper. You can also use the context menu to wrap selected text. Alternatively, write ruby markup manually.
 - The plugin will render ruby in reading and editing mode but show raw markup in source mode. Ruby in code blocks or inline code will stay raw.
 - To edit existing annotation, click on it or step into it with the left and right arrow keys.
-- If smart arrows keys are enabled, the cursor will jump over ruby without revealing the raw markup. Press the arrow key in the opposite direction after a jump to edit the skipped text. You can disable smart arrows keys if you prefer to reveal the raw markup on cursor contact. (Note: smart arrow keys slightly slow cursor movement.)
+- If smart arrows keys are enabled, the cursor will jump over ruby without revealing the raw markup. Press the arrow key in the opposite direction after a jump to edit the skipped text. You can disable smart arrows keys if you prefer to reveal the raw markup on cursor contact.
 - If the note contains any Markdown ruby, the conversion command will convert them to HTML. If the note contains only HTTML ruby, the command will convert all of them to Markdown ruby.
 
 ## Design Choices
@@ -49,6 +49,8 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 ## Security
 
 - This plugin does not store or transmit any data and requires no internet connection.
+- This plugin has zero dependencies
+- Using Obsidian Style Settings Plugin is optional
 - I use this plugin daily and fix issues as I encounter them. If you prefer a version reviewed by the Obsidian team, use version 1.0.3.
 
 ## Licenses & Acknowledgments
