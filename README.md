@@ -48,7 +48,7 @@ Feature requests, bug reports, and pull requests are welcome.
 ### Coming
 
 This plugin is considered feature-complete. No new features are planned beyond maintenance.
-- 
+
 ## Security
 
 - This plugin does not store or transmit any data and requires no internet connection.
