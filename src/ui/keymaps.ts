@@ -1,7 +1,9 @@
-import { keymap, EditorView } from "@codemirror/view";
-import { EditorSelection, Prec, Text } from "@codemirror/state";
-import { isInsideCode, isSourceMode, MDRubyRegex } from "../utils/utils";
-import AdvancedRuby from "main";
+import type { Text } from "@codemirror/state";
+import type { EditorView } from "@codemirror/view";
+import type AdvancedRuby from "main.ts";
+import { EditorSelection, Prec } from "@codemirror/state";
+import { keymap } from "@codemirror/view";
+import { isInsideCode, isSourceMode, MDRubyRegex } from "utils/utils.ts";
 
 export function ARKeymap(plugin: AdvancedRuby) {
 	return Prec.highest(

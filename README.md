@@ -43,9 +43,12 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 
 ## Roadmap
 
-- This plugin is considered feature-complete. No new features are planned beyond maintenance.
-- Feature requests, bug reports, and pull requests are welcome.
+Feature requests, bug reports, and pull requests are welcome.
 
+### Coming
+
+This plugin is considered feature-complete. No new features are planned beyond maintenance.
+- 
 ## Security
 
 - This plugin does not store or transmit any data and requires no internet connection.
@@ -55,7 +58,7 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 
 ## Licenses & Acknowledgments
 
-Advanced Ruby starting from version 1.0.7 is available under the GPL-3 License. Advanced Ruby up to version 1.0.6 is available under the MIT License. Copyright (c) 2025-2026  Peter Yanase
+Advanced Ruby starting from version 2.0.1 is available under the PolyForm-Perimeter v.1.0.1 license. Advanced Ruby from version 1.0.7 to version 2.0.0 is available under the GPL-3 License. Advanced Ruby up to version 1.0.6 is available under the MIT License. Copyright (c) 2025–2026  Peter Yanase
 
 This project includes code derived from:
 

@@ -1,5 +1,6 @@
-import { App, PluginSettingTab, Setting } from "obsidian";
-import AdvancedRuby from "../main";
+import type { App } from "obsidian";
+import type AdvancedRuby from "main.ts";
+import { PluginSettingTab, Setting } from "obsidian";
 
 export class ARSettingTab extends PluginSettingTab {
 	plugin: AdvancedRuby;

@@ -1,5 +1,5 @@
-import { transformRubyBlocks } from "../utils/utils";
 import { sanitizeHTMLToDom } from "obsidian";
+import { transformRubyBlocks } from "utils/utils.ts";
 
 // List of nodes to skip
 const dontRender: Set<string> = new Set(["CODE", "PRE"]);

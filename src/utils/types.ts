@@ -8,7 +8,3 @@ export interface RubyMatch {
 export interface ARSettings {
 	smartarrows: boolean;
 }
-
-export const DEFAULT_SETTINGS: ARSettings = {
-	smartarrows: true,
-};

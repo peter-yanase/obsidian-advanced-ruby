@@ -1,16 +1,14 @@
-import {
-	Decoration,
-	ViewPlugin,
+import type {
 	ViewUpdate,
-	WidgetType,
 	EditorView,
 	PluginValue,
 	DecorationSet,
 	PluginSpec,
 } from "@codemirror/view";
+import type { RubyMatch } from "utils/types";
 import { RangeSetBuilder, EditorSelection } from "@codemirror/state";
-import { type RubyMatch } from "../types";
-import { isInsideCode, isSourceMode } from "../utils/utils";
+import { Decoration, ViewPlugin, WidgetType } from "@codemirror/view";
+import { isInsideCode, isSourceMode } from "utils/utils.ts";
 
 function parseRuby(text: string, offset: number = 0): RubyMatch[] {
 	// Handle nested ruby

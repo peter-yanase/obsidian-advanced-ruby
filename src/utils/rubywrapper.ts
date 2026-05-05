@@ -1,4 +1,4 @@
-import { Editor } from "obsidian";
+import type { Editor } from "obsidian";
 
 // Wrap selected text in MD ruby markup
 export function addMDRubyWrapper(

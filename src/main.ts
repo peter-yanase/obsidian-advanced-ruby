@@ -1,13 +1,14 @@
+import type { ARSettings } from "utils/types.ts";
 import { Plugin } from "obsidian";
-import { addCommands } from "./ui/commands";
-import { ARKeymap } from "./ui/keymaps";
-import { ARSettingTab } from "./ui/settingstab";
-import { readingView } from "./rendering/readingview";
-import { editingView } from "./rendering/editingview";
-import { ARSettings, DEFAULT_SETTINGS } from "./types";
+import { addCommands } from "ui/commands.ts";
+import { ARKeymap } from "ui/keymaps.ts";
+import { ARSettingTab } from "ui/settingstab.ts";
+import { DEFAULT_SETTINGS } from "utils/constants";
+import { editingView } from "rendering/editingview.ts";
+import { readingView } from "rendering/readingview.ts";
 
 export default class AdvancedRuby extends Plugin {
-	settings: ARSettings;
+	settings!: ARSettings;
 
 	async loadSettings() {
 		this.settings = Object.assign(
