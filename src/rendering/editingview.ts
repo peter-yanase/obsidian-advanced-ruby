@@ -102,7 +102,7 @@ class RubyWidget extends WidgetType {
 
 		// Push text if no nodes were found
 		if (matches.length === 0) {
-			nodes.push(document.createTextNode(text));
+			nodes.push(activeDocument.createTextNode(text));
 			return nodes;
 		}
 
@@ -111,7 +111,7 @@ class RubyWidget extends WidgetType {
 			// Add the text before the match
 			if (match.start > cursorPos)
 				nodes.push(
-					document.createTextNode(text.slice(cursorPos, match.start)),
+					activeDocument.createTextNode(text.slice(cursorPos, match.start)),
 				);
 
 			// Add the ruby
@@ -127,19 +127,19 @@ class RubyWidget extends WidgetType {
 
 		// Add the remaining text
 		if (cursorPos < text.length)
-			nodes.push(document.createTextNode(text.slice(cursorPos)));
+			nodes.push(activeDocument.createTextNode(text.slice(cursorPos)));
 
 		return nodes;
 	}
 
 	private createRubyElement(baseNodes: Node[], ruby: string): HTMLElement {
-		const rubyEl: HTMLElement = document.createElement("ruby");
+		const rubyEl: HTMLElement = createEl("ruby");
 
 		// Render nested ruby first
 		for (const node of baseNodes) rubyEl.appendChild(node);
 
 		// Add the parent's annotation
-		const rtEl: HTMLElement = document.createElement("rt");
+		const rtEl: HTMLElement = createEl("rt");
 		rtEl.textContent = ruby;
 		rubyEl.appendChild(rtEl);
 

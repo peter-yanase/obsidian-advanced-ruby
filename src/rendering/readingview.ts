@@ -9,7 +9,7 @@ export function readingView(element: HTMLElement) {
 	if (!element.innerText.includes("{")) return;
 
 	// Create walker
-	const walker: TreeWalker = document.createTreeWalker(
+	const walker: TreeWalker = activeDocument.createTreeWalker(
 		element,
 		// Only process nodes containing text
 		NodeFilter.SHOW_TEXT,

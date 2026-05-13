@@ -1,10 +1,4 @@
-<p align="center">
-<img alt="Advanced Ruby logo" src="./assets/logo_default.svg">
-</p>
-
----
-
-Advanced Ruby enables complex, language-independent ruby annotation rendering and editing for [Obsidian](https://github.com/obsidianmd).
+Advanced Ruby enables complex, language-independent ruby annotation rendering and editing.
 
 While ruby is commonly used to show the pronunciation of Japanese and other East Asian characters, it can be used to annotate any kind of text.
 
@@ -14,15 +8,10 @@ It renders Markdown ruby syntax (`{base|ruby}`) as HTML ruby tags (`<ruby>base<r
 
 In editing mode, you can insert Markdown ruby wrappers and convert between Markdown and HTML ruby syntaxes.
 
-<img src="./assets/sample.png">
-
 ## Features
 
 - Fast and efficient parsing
 - Code block skipping
-- Command to wrap selected text in ruby syntax or insert an empty wrapper
-- Context menu option for wrapping selected text
-- Command to convert between Markdown and HTML ruby syntaxes
 - Touch support for mobile
 - Granular style customization via the [Obsidian Style Settings Plugin](https://github.com/mgmeyers/obsidian-style-settings) (up to two layers)
 - Non-destructive rendering
@@ -54,7 +43,6 @@ This plugin is considered feature-complete. No new features are planned beyond m
 - This plugin does not store or transmit any data and requires no internet connection.
 - This plugin has zero dependencies
 - Using Obsidian Style Settings Plugin is optional
-- I use this plugin daily and fix issues as I encounter them. If you prefer a version reviewed by the Obsidian team, use version 1.0.3.
 
 ## Licenses & Acknowledgments
 
