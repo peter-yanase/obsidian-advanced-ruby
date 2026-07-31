@@ -1,6 +1,6 @@
-import type { App } from "obsidian";
+import type { App, SettingDefinitionItem } from "obsidian";
 import type AdvancedRuby from "main.ts";
-import { PluginSettingTab, Setting } from "obsidian";
+import { PluginSettingTab } from "obsidian";
 
 export class ARSettingTab extends PluginSettingTab {
 	plugin: AdvancedRuby;
@@ -10,25 +10,22 @@ export class ARSettingTab extends PluginSettingTab {
 		this.plugin = plugin;
 	}
 
-	display(): void {
-		const { containerEl } = this;
-
-		containerEl.empty();
-
-		new Setting(containerEl).setHeading().setName("Arrow key behavior");
-
-		new Setting(containerEl)
-			.setName("Smart arrows keys")
-			.setDesc(
-				"Jump over Markdown ruby in editing mode. Press the opposite arrow after a jump to edit ruby.",
-			)
-			.addToggle((component) =>
-				component
-					.setValue(this.plugin.settings.smartarrows)
-					.onChange(async (value) => {
-						this.plugin.settings.smartarrows = value;
-						await this.plugin.saveSettings();
-					}),
-			);
+	getSettingDefinitions(): SettingDefinitionItem[] {
+		return [
+			{
+				type: "group",
+				heading: "Arrow key behavior",
+				items: [
+					{
+						name: "Smart arrows keys",
+						desc: "Jump over Markdown ruby in editing mode. Press the opposite arrow after a jump to edit ruby.",
+						control: {
+							type: "toggle",
+							key: "smartarrows",
+						},
+					},
+				],
+			},
+		];
 	}
 }
