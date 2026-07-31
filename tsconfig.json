@@ -6,30 +6,23 @@
 		"inlineSourceMap": true,
 		"inlineSources": true,
 		"module": "ESNext",
-		"target": "es2018",
-		"allowJs": true,
-		"noImplicitAny": true,
-		"noImplicitThis": true,
+		"target": "ES2021",
+		"strict": true,
 		"noImplicitReturns": true,
-		"moduleResolution": "bundler",
-		"importHelpers": true,
+		"noFallthroughCasesInSwitch": true,
 		"noUncheckedIndexedAccess": true,
+		"moduleResolution": "bundler",
 		"isolatedModules": true,
-		"strictNullChecks": true,
-		"strictBindCallApply": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
 		"allowSyntheticDefaultImports": true,
-		"useUnknownInCatchVariables": true,
+		"removeComments": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"importHelpers": true,
 		"allowImportingTsExtensions": true,
 		"noEmit": true,
-		"lib": [
-			"DOM",
-			"ES5",
-			"ES6",
-			"ES7",
-			"ES2020"
-		]
+		"lib": ["ES2021", "DOM"]
 	},
-	"include": [
-		"src/**/*.ts"
-	]
+	"include": ["src/**/*.ts"]
 }
