@@ -22,6 +22,8 @@ jobs:
           node-version: "24.15.0"
       - name: Install dependencies
         run: npm install
+      - name: Copy styles.css
+        run: cp src/styles.css styles.css
       - name: Build
         run: npm run build
       - name: Generate artifact attestation
@@ -31,9 +33,12 @@ jobs:
             main.js
             manifest.json
             styles.css
-      - name: Create release
+      - name: Authenticate GitHub CLI
+        run: |
+          echo "${GITHUB_TOKEN}" | gh auth login --with-token
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release
         run: |
           tag="${GITHUB_REF#refs/tags/}"
           gh release create "$tag" \
