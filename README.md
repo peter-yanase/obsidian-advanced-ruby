@@ -13,7 +13,7 @@ In editing mode, you can insert Markdown ruby wrappers and convert between Markd
 - Fast and efficient parsing
 - Code block skipping
 - Touch support for mobile
-- Granular style customization via the [Obsidian Style Settings Plugin](https://github.com/mgmeyers/obsidian-style-settings) (up to two layers)
+- Granular style customization up to two layers
 - Non-destructive rendering
 - Support for complex nested markup
 - Intuitive UI
@@ -42,7 +42,6 @@ This plugin is considered feature-complete. No new features are planned beyond m
 
 - This plugin does not store or transmit any data and requires no internet connection.
 - This plugin has zero dependencies
-- Using Obsidian Style Settings Plugin is optional
 
 ## Licenses & Acknowledgments
 

@@ -1,18 +1,3 @@
-:root {
-  --ar-lv1-base-color: inherit;
-  --ar-lv1-ruby-color: inherit;
-  --ar-lv1-ruby-size: 50%;
-  --ar-lv1-ruby-position: over;
-  --ar-lv1-ruby-relative-offset: 0.2;
-  --ar-lv1-ruby-distribution: space-around;
-  --ar-lv2-base-color: inherit;
-  --ar-lv2-ruby-color: inherit;
-  --ar-lv2-ruby-size: 50%;
-  --ar-lv2-ruby-position: under;
-  --ar-lv2-ruby-relative-offset: -0.2;
-  --ar-lv2-ruby-distribution: center;
-}
-
 .markdown-source-view,
 .markdown-preview-view {
   & ruby {
@@ -20,6 +5,7 @@
       color: var(--ar-lv1-base-color);
       ruby-position: var(--ar-lv1-ruby-position);
       > rt {
+        position: relative;
         color: var(--ar-lv1-ruby-color);
         font-size: var(--ar-lv1-ruby-size);
         bottom: var(--ar-lv1-ruby-relative-offset);
@@ -30,6 +16,7 @@
       color: var(--ar-lv2-base-color);
       ruby-position: var(--ar-lv2-ruby-position);
       > rt {
+        position: relative;
         color: var(--ar-lv2-ruby-color);
         font-size: var(--ar-lv2-ruby-size);
         bottom: var(--ar-lv2-ruby-relative-offset);

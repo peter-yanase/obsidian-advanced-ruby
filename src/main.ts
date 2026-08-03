@@ -7,6 +7,7 @@ import { DEFAULT_SETTINGS } from "utils/constants.ts";
 import { editingView } from "rendering/editingview.ts";
 import { readingView } from "rendering/readingview.ts";
 import { rubyClassHandler } from "utils/rubyclassadded.ts";
+import { refreshARStyle } from "utils/cssrefresher";
 
 export default class AdvancedRuby extends Plugin {
 	settings!: ARSettings;
@@ -21,6 +22,7 @@ export default class AdvancedRuby extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
+		refreshARStyle(this.settings);
 	}
 
 	async onload() {
@@ -35,6 +37,8 @@ export default class AdvancedRuby extends Plugin {
 		this.registerEditorExtension(ARKeymap(this));
 
 		addCommands(this);
+
+		refreshARStyle(this.settings);
 
 		rubyClassHandler(document);
 	}
