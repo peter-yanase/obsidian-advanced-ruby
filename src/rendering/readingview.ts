@@ -1,8 +1,6 @@
 import { sanitizeHTMLToDom } from "obsidian";
+import { dontRender } from "utils/constants.ts";
 import { transformRubyBlocks } from "utils/utils.ts";
-
-// List of nodes to skip
-const dontRender: Set<string> = new Set(["CODE", "PRE"]);
 
 export function readingView(element: HTMLElement) {
 	// Skip early if there are no curly brackets

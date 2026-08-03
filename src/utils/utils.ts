@@ -87,6 +87,6 @@ export function isInsideCode(view: EditorView, pos: number): boolean {
 	return insideCode;
 }
 
-export function isSourceMode(view: EditorView): boolean {
+export function inSourceMode(view: EditorView): boolean {
 	return !view.state.field(editorLivePreviewField);
 }

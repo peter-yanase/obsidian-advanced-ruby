@@ -3,7 +3,7 @@ import type { EditorView } from "@codemirror/view";
 import type AdvancedRuby from "main.ts";
 import { EditorSelection, Prec } from "@codemirror/state";
 import { keymap } from "@codemirror/view";
-import { isInsideCode, isSourceMode, MDRubyRegex } from "utils/utils.ts";
+import { isInsideCode, inSourceMode, MDRubyRegex } from "utils/utils.ts";
 
 export function ARKeymap(plugin: AdvancedRuby) {
 	return Prec.highest(
@@ -49,7 +49,7 @@ function noJump() {
 }
 
 function jumpRubyRight(view: EditorView) {
-	if (isSourceMode(view)) return false;
+	if (inSourceMode(view)) return false;
 	const cursorPos: number = view.state.selection.main.head;
 	if (isInsideCode(view, cursorPos)) return false;
 	const doc: Text = view.state.doc;
@@ -76,7 +76,7 @@ function jumpRubyRight(view: EditorView) {
 }
 
 function jumpRubyLeft(view: EditorView) {
-	if (isSourceMode(view)) return false;
+	if (inSourceMode(view)) return false;
 	const cursorPos: number = view.state.selection.main.head;
 	if (cursorPos === 0) return noJump();
 	if (isInsideCode(view, cursorPos)) return false;
@@ -106,7 +106,7 @@ function jumpRubyLeft(view: EditorView) {
 }
 
 function jumpRubyRightAndSelect(view: EditorView) {
-	if (isSourceMode(view)) return false;
+	if (inSourceMode(view)) return false;
 	const cursorPos: number = view.state.selection.main.head;
 	if (isInsideCode(view, cursorPos)) return false;
 	const doc: Text = view.state.doc;
@@ -133,7 +133,7 @@ function jumpRubyRightAndSelect(view: EditorView) {
 }
 
 function jumpRubyLeftAndSelect(view: EditorView) {
-	if (isSourceMode(view)) return false;
+	if (inSourceMode(view)) return false;
 	const cursorPos: number = view.state.selection.main.head;
 	if (cursorPos === 0) return noJump();
 	if (isInsideCode(view, cursorPos)) return false;
