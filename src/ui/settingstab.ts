@@ -3,9 +3,12 @@ import type AdvancedRuby from "main.ts";
 import { PluginSettingTab } from "obsidian";
 import {
 	colorOptions,
-	distributionOptions,
-	positionOptions,
-} from "utils/constants";
+	cssVariableMap,
+	cssUnits,
+	rubyDistributionOptions,
+	rubyPositionOptions,
+} from "utils/constants.ts";
+import { ARSettings } from "utils/types.ts";
 
 export class ARSettingTab extends PluginSettingTab {
 	plugin: AdvancedRuby;
@@ -13,6 +16,18 @@ export class ARSettingTab extends PluginSettingTab {
 	constructor(app: App, plugin: AdvancedRuby) {
 		super(app, plugin);
 		this.plugin = plugin;
+	}
+
+	private async updateSetting<K extends keyof ARSettings>(
+		key: K,
+		value: ARSettings[K],
+		unit: string = cssUnits[key] ?? "",
+	) {
+		this.plugin.settings[key] = value;
+		await this.plugin.saveSettings();
+		document.body.setCssProps({
+			[cssVariableMap[key] as string]: `${value}${unit}`,
+		});
 	}
 
 	getSettingDefinitions(): SettingDefinitionItem[] {
@@ -23,7 +38,7 @@ export class ARSettingTab extends PluginSettingTab {
 				items: [
 					{
 						name: "Smart arrows keys",
-						desc: "Jump over Markdown ruby in editing mode. Press the opposite arrow after a jump to edit ruby.",
+						desc: "Jump over Markdown ruby in editing mode. Press the opposite arrow after a jump to edit the ruby.",
 						control: {
 							type: "toggle",
 							key: "smartarrows",
@@ -44,9 +59,10 @@ export class ARSettingTab extends PluginSettingTab {
 									.addOptions(colorOptions)
 									.setValue(this.plugin.settings.lv1BaseColor)
 									.onChange(async (value) => {
-										this.plugin.settings.lv1BaseColor =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv1BaseColor",
+											value,
+										);
 									}),
 							);
 						},
@@ -60,9 +76,10 @@ export class ARSettingTab extends PluginSettingTab {
 									.addOptions(colorOptions)
 									.setValue(this.plugin.settings.lv1RubyColor)
 									.onChange(async (value) => {
-										this.plugin.settings.lv1RubyColor =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv1RubyColor",
+											value,
+										);
 									}),
 							);
 						},
@@ -76,9 +93,10 @@ export class ARSettingTab extends PluginSettingTab {
 									.setLimits(30, 80, 5)
 									.setValue(this.plugin.settings.lv1RubySize)
 									.onChange(async (value) => {
-										this.plugin.settings.lv1RubySize =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv1RubySize",
+											value,
+										);
 									}),
 							);
 						},
@@ -88,14 +106,15 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(positionOptions)
+									.addOptions(rubyPositionOptions)
 									.setValue(
 										this.plugin.settings.lv1RubyPosition,
 									)
 									.onChange(async (value) => {
-										this.plugin.settings.lv1RubyPosition =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv1RubyPosition",
+											value,
+										);
 									}),
 							);
 						},
@@ -112,9 +131,10 @@ export class ARSettingTab extends PluginSettingTab {
 											.lv1RubyRelativeOffset,
 									)
 									.onChange(async (value) => {
-										this.plugin.settings.lv1RubyRelativeOffset =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv1RubyRelativeOffset",
+											value,
+										);
 									}),
 							);
 						},
@@ -124,15 +144,16 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(distributionOptions)
+									.addOptions(rubyDistributionOptions)
 									.setValue(
 										this.plugin.settings
 											.lv1RubyDistribution,
 									)
 									.onChange(async (value) => {
-										this.plugin.settings.lv1RubyDistribution =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv1RubyDistribution",
+											value,
+										);
 									}),
 							);
 						},
@@ -141,7 +162,7 @@ export class ARSettingTab extends PluginSettingTab {
 			},
 			{
 				type: "group",
-				heading: "Level 2 style settings",
+				heading: "Level  style settings",
 				items: [
 					{
 						name: "LV2 base color",
@@ -152,9 +173,10 @@ export class ARSettingTab extends PluginSettingTab {
 									.addOptions(colorOptions)
 									.setValue(this.plugin.settings.lv2BaseColor)
 									.onChange(async (value) => {
-										this.plugin.settings.lv2BaseColor =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv2BaseColor",
+											value,
+										);
 									}),
 							);
 						},
@@ -168,9 +190,10 @@ export class ARSettingTab extends PluginSettingTab {
 									.addOptions(colorOptions)
 									.setValue(this.plugin.settings.lv2RubyColor)
 									.onChange(async (value) => {
-										this.plugin.settings.lv2RubyColor =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv2RubyColor",
+											value,
+										);
 									}),
 							);
 						},
@@ -184,9 +207,10 @@ export class ARSettingTab extends PluginSettingTab {
 									.setLimits(30, 80, 5)
 									.setValue(this.plugin.settings.lv2RubySize)
 									.onChange(async (value) => {
-										this.plugin.settings.lv2RubySize =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv2RubySize",
+											value,
+										);
 									}),
 							);
 						},
@@ -196,14 +220,15 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(positionOptions)
+									.addOptions(rubyPositionOptions)
 									.setValue(
 										this.plugin.settings.lv2RubyPosition,
 									)
 									.onChange(async (value) => {
-										this.plugin.settings.lv2RubyPosition =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv2RubyPosition",
+											value,
+										);
 									}),
 							);
 						},
@@ -220,9 +245,10 @@ export class ARSettingTab extends PluginSettingTab {
 											.lv2RubyRelativeOffset,
 									)
 									.onChange(async (value) => {
-										this.plugin.settings.lv2RubyRelativeOffset =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv2RubyRelativeOffset",
+											value,
+										);
 									}),
 							);
 						},
@@ -232,15 +258,16 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(distributionOptions)
+									.addOptions(rubyDistributionOptions)
 									.setValue(
 										this.plugin.settings
 											.lv2RubyDistribution,
 									)
 									.onChange(async (value) => {
-										this.plugin.settings.lv2RubyDistribution =
-											value;
-										await this.plugin.saveSettings();
+										await this.updateSetting(
+											"lv2RubyDistribution",
+											value,
+										);
 									}),
 							);
 						},

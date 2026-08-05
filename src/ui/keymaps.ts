@@ -5,7 +5,7 @@ import { EditorSelection, Prec } from "@codemirror/state";
 import { keymap } from "@codemirror/view";
 import { isInsideCode, inSourceMode, MDRubyRegex } from "utils/utils.ts";
 
-export function ARKeymap(plugin: AdvancedRuby) {
+export function smartarrowExtension(plugin: AdvancedRuby) {
 	return Prec.highest(
 		keymap.of([
 			{

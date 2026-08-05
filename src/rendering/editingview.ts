@@ -139,4 +139,4 @@ const pluginSpec: PluginSpec<ARViewPlugin> = {
 	decorations: (value: ARViewPlugin) => value.decorations,
 };
 
-export const editingView = ViewPlugin.fromClass(ARViewPlugin, pluginSpec);
+export const rubyRenderingExtension = ViewPlugin.fromClass(ARViewPlugin, pluginSpec);

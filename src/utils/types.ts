@@ -1,10 +1,3 @@
-export interface RubyMatch {
-	start: number;
-	end: number;
-	base: string;
-	ruby: string;
-}
-
 export interface ARSettings {
 	smartarrows: boolean;
 
@@ -21,4 +14,11 @@ export interface ARSettings {
 	lv2RubyPosition: string;
 	lv2RubyRelativeOffset: number;
 	lv2RubyDistribution: string;
+}
+
+export interface RubyMatch {
+	start: number;
+	end: number;
+	base: string;
+	ruby: string;
 }

@@ -1,4 +1,4 @@
-export function rubyClassHandler(document: Document) {
+export function startRubyClassHandler(document: Document) {
 	const observer = new MutationObserver(() => {
 		const allRuby: NodeListOf<HTMLElement> =
 			document.querySelectorAll("ruby");
