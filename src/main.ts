@@ -1,23 +1,24 @@
-import type { ARSettings } from "utils/types.ts";
 import { Plugin } from "obsidian";
-import { addCommands } from "ui/commands.ts";
-import { smartarrowExtension } from "ui/keymaps.ts";
-import { ARSettingTab } from "ui/settingstab.ts";
-import { DEFAULT_SETTINGS } from "utils/constants.ts";
-import { startRubyClassHandler } from "utils/rubyclassadder.ts";
-import { setCSSVariables } from "utils/stylebuilder.ts";
-import { rubyRenderingExtension } from "rendering/editingview.ts";
-import { rubyPostProcessor } from "rendering/readingview.ts";
+import { addCommands } from "ui/commands";
+import { smartArrowkeysExtension } from "ui/keymaps";
+import { ARSettingTab } from "ui/settingstab";
+import { DEFAULT_SETTINGS } from "utils/constants";
+import { startRubyClassHandler } from "utils/rubyclassadder";
+import { setCSSVariables } from "utils/stylebuilder";
+import { Jump, type ARSettings } from "utils/types";
+import { rubyRenderingExtension } from "rendering/editingview";
+import { rubyPostProcessor } from "rendering/readingview";
 
 export default class AdvancedRuby extends Plugin {
-	settings!: ARSettings;
+	declare settings: ARSettings;
+	lastJump: Jump = undefined;
 
 	async onload() {
-		await this.loadSettings();
+		await this.loadSettings(); // OK
 
-		this.registerEditorExtension(rubyRenderingExtension);
+		this.registerEditorExtension(rubyRenderingExtension); // OK
 
-		this.registerEditorExtension(smartarrowExtension(this));
+		this.registerEditorExtension(smartArrowkeysExtension(this)); // OK
 
 		this.registerMarkdownPostProcessor(rubyPostProcessor);
 
@@ -31,6 +32,7 @@ export default class AdvancedRuby extends Plugin {
 	}
 
 	async loadSettings() {
+		// OK
 		this.settings = Object.assign(
 			{},
 			DEFAULT_SETTINGS,
@@ -39,6 +41,7 @@ export default class AdvancedRuby extends Plugin {
 	}
 
 	async saveSettings() {
+		// OK
 		await this.saveData(this.settings);
 	}
 }

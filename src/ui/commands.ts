@@ -1,7 +1,7 @@
 import type { Plugin, Editor, Menu } from "obsidian";
 import { Notice } from "obsidian";
-import { addMDRubyWrapper } from "utils/rubywrapper.ts";
-import { transformRubyBlocks } from "utils/utils.ts";
+import { transformRubyBlocks } from "utils/rubyblocktransformer";
+import { addMDRubyWrapper } from "utils/rubywrapper";
 
 // Wrapper function
 export function addCommands(plugin: Plugin) {

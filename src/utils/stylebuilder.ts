@@ -1,5 +1,5 @@
-import { cssVariableMap, cssUnits } from "./constants.ts";
-import type { ARSettings } from "./types.ts";
+import { cssVariableMap, cssUnits } from "./constants";
+import type { ARSettings } from "./types";
 
 export function setCSSVariables(settings: ARSettings) {
 	const props: Record<string, string> = {};

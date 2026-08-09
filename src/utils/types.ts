@@ -16,9 +16,11 @@ export interface ARSettings {
 	lv2RubyDistribution: string;
 }
 
-export interface RubyMatch {
+export interface Ruby {
 	start: number;
 	end: number;
 	base: string;
 	ruby: string;
 }
+
+export type Jump = undefined | "left" | "right";

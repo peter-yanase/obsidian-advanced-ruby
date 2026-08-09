@@ -1,4 +1,4 @@
-import { ARSettings } from "./types.ts";
+import { ARSettings } from "./types";
 
 export const DEFAULT_SETTINGS: Partial<ARSettings> = {
 	smartarrows: true,
@@ -70,4 +70,4 @@ export const cssUnits: Partial<Record<keyof ARSettings, string>> = {
 	lv2RubyRelativeOffset: "em",
 };
 
-export const tagsToSkip: ReadonlySet<string> = new Set(["CODE", "PRE"]);
+export const JUMPSEARCHWINDOW: number = 20;

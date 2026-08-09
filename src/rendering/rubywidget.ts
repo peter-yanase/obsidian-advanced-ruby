@@ -1,5 +1,5 @@
 import type { EditorView } from "@codemirror/view";
-import type { RubyMatch } from "utils/types";
+import type { Ruby } from "utils/types";
 import { EditorSelection } from "@codemirror/state";
 import { WidgetType } from "@codemirror/view";
 import { extractRuby } from "utils/rubyextractor";
@@ -29,7 +29,7 @@ export class RubyWidget extends WidgetType {
 
 	private renderRubyBaseText(text: string): Node[] {
 		const nodes: Node[] = [];
-		const rubyMatches: RubyMatch[] = extractRuby(text, 0);
+		const rubyMatches: Ruby[] = extractRuby(text, 0);
 
 		if (rubyMatches.length > 0) {
 			let pointerPosition: number = 0;

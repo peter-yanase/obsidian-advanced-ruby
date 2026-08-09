@@ -5,8 +5,8 @@
 		},
 		"inlineSourceMap": true,
 		"inlineSources": true,
-		"module": "ESNext",
-		"target": "ES2021",
+		"module": "esnext",
+		"target": "es2025",
 		"strict": true,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
@@ -20,9 +20,8 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"importHelpers": true,
-		"allowImportingTsExtensions": true,
 		"noEmit": true,
-		"lib": ["ES2021", "DOM"]
+		"lib": ["ES2025", "DOM"]
 	},
 	"include": ["src/**/*.ts"]
 }

@@ -1,10 +1,10 @@
+// OK
 import { sanitizeHTMLToDom } from "obsidian";
-import { tagsToSkip } from "utils/constants.ts";
-import { transformRubyBlocks } from "utils/utils.ts";
+import { transformRubyBlocks } from "utils/rubyblocktransformer";
 
 // Render ruby in reading mode
 export function rubyPostProcessor(element: HTMLElement) {
-	// Skip early if there are no opening curly brackets
+	// Skip early if there is no opening brace
 	if (!element.innerText.includes("{")) return;
 
 	const walker: TreeWalker = activeDocument.createTreeWalker(
@@ -18,7 +18,7 @@ export function rubyPostProcessor(element: HTMLElement) {
 
 		// Skip code blocks
 		const parentTag: string | undefined = candidate.parentElement?.tagName;
-		if (parentTag && tagsToSkip.has(parentTag)) continue;
+		if (parentTag && parentTag === "CODE") continue;
 
 		nodesToMutate.push(candidate);
 	}

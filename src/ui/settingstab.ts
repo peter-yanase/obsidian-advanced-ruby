@@ -1,5 +1,5 @@
 import type { App, SettingDefinitionItem } from "obsidian";
-import type AdvancedRuby from "main.ts";
+import type AdvancedRuby from "main";
 import { PluginSettingTab } from "obsidian";
 import {
 	colorOptions,
@@ -7,8 +7,8 @@ import {
 	cssUnits,
 	rubyDistributionOptions,
 	rubyPositionOptions,
-} from "utils/constants.ts";
-import { ARSettings } from "utils/types.ts";
+} from "utils/constants";
+import { ARSettings } from "utils/types";
 
 export class ARSettingTab extends PluginSettingTab {
 	plugin: AdvancedRuby;
