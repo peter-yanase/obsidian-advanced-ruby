@@ -2,8 +2,8 @@
 import { EditorSelection, type Text } from "@codemirror/state";
 import { type EditorView } from "@codemirror/view";
 import type AdvancedRuby from "main";
-import { JUMPSEARCHWINDOW } from "utils/constants";
-import { isInsideCode, isSourceMode, MDRubyRegex } from "utils/utils";
+import { JUMPSEARCHWINDOW, MD_RUBY_REGEX } from "utils/constants";
+import { isInsideCode, isSourceMode} from "utils/utils";
 
 export function jumpRubyLeft(view: EditorView, plugin: AdvancedRuby) {
 	if (isSourceMode(view)) return false;
@@ -22,8 +22,8 @@ export function jumpRubyLeft(view: EditorView, plugin: AdvancedRuby) {
 	}
 	const start: number = Math.max(0, cursorPos - JUMPSEARCHWINDOW);
 	const slice: string = doc.sliceString(start, cursorPos);
-	MDRubyRegex.lastIndex = 0;
-	for (const match of slice.matchAll(MDRubyRegex)) {
+	MD_RUBY_REGEX.lastIndex = 0;
+	for (const match of slice.matchAll(MD_RUBY_REGEX)) {
 		const from: number = start + match.index;
 		const to: number = from + match[0].length;
 		if (to === cursorPos) {

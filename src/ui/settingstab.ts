@@ -2,11 +2,11 @@ import type { App, SettingDefinitionItem } from "obsidian";
 import type AdvancedRuby from "main";
 import { PluginSettingTab } from "obsidian";
 import {
-	colorOptions,
-	cssVariableMap,
-	cssUnits,
-	rubyDistributionOptions,
-	rubyPositionOptions,
+	COLOR_OPTIONS,
+	CSS_VARIABLE_MAP,
+	CSS_UNITS,
+	RUBY_DISTRIBUTION_OPTIONS,
+	RUBY_POSITION_OPTIONS,
 } from "utils/constants";
 import { ARSettings } from "utils/types";
 
@@ -21,12 +21,12 @@ export class ARSettingTab extends PluginSettingTab {
 	private async updateSetting<K extends keyof ARSettings>(
 		key: K,
 		value: ARSettings[K],
-		unit: string = cssUnits[key] ?? "",
+		unit: string = CSS_UNITS[key] ?? "",
 	) {
 		this.plugin.settings[key] = value;
 		await this.plugin.saveSettings();
 		document.body.setCssProps({
-			[cssVariableMap[key] as string]: `${value}${unit}`,
+			[CSS_VARIABLE_MAP[key] as string]: `${value}${unit}`,
 		});
 	}
 
@@ -56,7 +56,7 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(colorOptions)
+									.addOptions(COLOR_OPTIONS)
 									.setValue(this.plugin.settings.lv1BaseColor)
 									.onChange(async (value) => {
 										await this.updateSetting(
@@ -73,7 +73,7 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(colorOptions)
+									.addOptions(COLOR_OPTIONS)
 									.setValue(this.plugin.settings.lv1RubyColor)
 									.onChange(async (value) => {
 										await this.updateSetting(
@@ -106,7 +106,7 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(rubyPositionOptions)
+									.addOptions(RUBY_POSITION_OPTIONS)
 									.setValue(
 										this.plugin.settings.lv1RubyPosition,
 									)
@@ -144,7 +144,7 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(rubyDistributionOptions)
+									.addOptions(RUBY_DISTRIBUTION_OPTIONS)
 									.setValue(
 										this.plugin.settings
 											.lv1RubyDistribution,
@@ -170,7 +170,7 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(colorOptions)
+									.addOptions(COLOR_OPTIONS)
 									.setValue(this.plugin.settings.lv2BaseColor)
 									.onChange(async (value) => {
 										await this.updateSetting(
@@ -187,7 +187,7 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(colorOptions)
+									.addOptions(COLOR_OPTIONS)
 									.setValue(this.plugin.settings.lv2RubyColor)
 									.onChange(async (value) => {
 										await this.updateSetting(
@@ -220,7 +220,7 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(rubyPositionOptions)
+									.addOptions(RUBY_POSITION_OPTIONS)
 									.setValue(
 										this.plugin.settings.lv2RubyPosition,
 									)
@@ -258,7 +258,7 @@ export class ARSettingTab extends PluginSettingTab {
 						render: (setting) => {
 							setting.addDropdown((dropdown) =>
 								dropdown
-									.addOptions(rubyDistributionOptions)
+									.addOptions(RUBY_DISTRIBUTION_OPTIONS)
 									.setValue(
 										this.plugin.settings
 											.lv2RubyDistribution,

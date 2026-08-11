@@ -2,8 +2,8 @@
 import { EditorSelection, type Text } from "@codemirror/state";
 import { type EditorView } from "@codemirror/view";
 import type AdvancedRuby from "main";
-import { JUMPSEARCHWINDOW } from "utils/constants";
-import { isInsideCode, isSourceMode, MDRubyRegex } from "utils/utils";
+import { JUMPSEARCHWINDOW, MD_RUBY_REGEX } from "utils/constants";
+import { isInsideCode, isSourceMode} from "utils/utils";
 
 export function jumpRubyRightAndSelect(view: EditorView, plugin: AdvancedRuby) {
 	if (isSourceMode(view)) return false;
@@ -17,8 +17,8 @@ export function jumpRubyRightAndSelect(view: EditorView, plugin: AdvancedRuby) {
 	}
 	const end = Math.min(doc.length, cursorPos + JUMPSEARCHWINDOW);
 	const slice = doc.sliceString(cursorPos, end);
-	MDRubyRegex.lastIndex = 0;
-	const match = MDRubyRegex.exec(slice);
+	MD_RUBY_REGEX.lastIndex = 0;
+	const match = MD_RUBY_REGEX.exec(slice);
 	if (!match) {
 		plugin.lastJump = undefined;
 		return false;

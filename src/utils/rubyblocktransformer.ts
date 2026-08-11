@@ -1,46 +1,33 @@
-import { HTMLRubyRegex, MDRubyRegex, notRenderingRegex } from "./utils";
+import {
+	HTML_RUBY_REGEX,
+	MD_RUBY_REGEX,
+	CODE_REGEX,
+	HTML_RUBY_SYNTAX,
+	MD_RUBY_SYNTAX,
+	PLACEHOLDER,
+} from "./constants";
+import { SyntaxType } from "./types";
 
-export function transformRubyBlocks(
+export function convertRubySyntax(
 	originalText: string,
-	autoDetectRuby: boolean = false,
-): { text: string; direction: "md-to-html" | "html-to-md" } {
-	let maxMutations: number = 5;
+	target: SyntaxType,
+): string {
 	let currentTextMutation: string = originalText;
 	let previousTextMutation: string;
 	let mutationCount: number = 0;
-	let regex: RegExp = MDRubyRegex;
-	let direction: "md-to-html" | "html-to-md" = "md-to-html";
 
 	// Extract protected spans
 	const protectedSpans: string[] = [];
-	currentTextMutation = currentTextMutation.replace(
-		notRenderingRegex,
-		(match) => {
-			protectedSpans.push(match);
-			return `@@PROTECTED${protectedSpans.length - 1}@@`;
-		},
-	);
+	currentTextMutation = currentTextMutation.replace(CODE_REGEX, (match) => {
+		protectedSpans.push(match);
+		const numberedSpan: string = `@@PROTECTED${protectedSpans.length - 1}@@`;
+		console.log(numberedSpan);
+		return numberedSpan;
+	});
 
-	if (autoDetectRuby && !MDRubyRegex.test(currentTextMutation)) {
-		direction = "html-to-md";
-	}
-
-	let head: string, divider: string, tail: string;
-	switch (direction) {
-		case "md-to-html":
-			head = "<ruby>";
-			divider = "<rt>";
-			tail = "</rt></ruby>";
-			break;
-		case "html-to-md":
-			head = "{";
-			divider = "|";
-			tail = "}";
-			regex = HTMLRubyRegex;
-			break;
-		default:
-			return { text: originalText, direction };
-	}
+	const { head, divider, tail }: Record<string, string> =
+		target === "HTML" ? HTML_RUBY_SYNTAX : MD_RUBY_SYNTAX;
+	const regex = target === "HTML" ? MD_RUBY_REGEX : HTML_RUBY_REGEX;
 
 	do {
 		previousTextMutation = currentTextMutation;
@@ -51,15 +38,12 @@ export function transformRubyBlocks(
 			},
 		);
 		mutationCount += 1;
-	} while (
-		currentTextMutation !== previousTextMutation &&
-		mutationCount < maxMutations
-	);
+	} while (currentTextMutation !== previousTextMutation && mutationCount < 2);
 
 	// Restore protected spans
 	currentTextMutation = currentTextMutation.replace(
-		/@@PROTECTED(\d+)@@/g,
-		(_, i) => protectedSpans[+i]!,
+		PLACEHOLDER,
+		(_, number) => protectedSpans[+number]!,
 	);
-	return { text: currentTextMutation, direction };
+	return currentTextMutation;
 }

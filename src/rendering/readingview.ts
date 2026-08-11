@@ -1,6 +1,6 @@
 // OK
 import { sanitizeHTMLToDom } from "obsidian";
-import { transformRubyBlocks } from "utils/rubyblocktransformer";
+import { convertRubySyntax } from "utils/rubyblocktransformer";
 
 // Render ruby in reading mode
 export function rubyPostProcessor(element: HTMLElement) {
@@ -25,7 +25,7 @@ export function rubyPostProcessor(element: HTMLElement) {
 
 	for (const node of nodesToMutate) {
 		const originalText: string = node.nodeValue!;
-		const { text: newText } = transformRubyBlocks(originalText);
+		const newText = convertRubySyntax(originalText, "HTML");
 		const safeFragment: DocumentFragment = sanitizeHTMLToDom(newText);
 		node.replaceWith(safeFragment);
 	}

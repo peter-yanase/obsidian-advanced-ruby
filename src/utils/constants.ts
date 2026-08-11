@@ -1,4 +1,4 @@
-import { ARSettings } from "./types";
+import { ARSettings, Syntax } from "./types";
 
 export const DEFAULT_SETTINGS: Partial<ARSettings> = {
 	smartarrows: true,
@@ -18,7 +18,7 @@ export const DEFAULT_SETTINGS: Partial<ARSettings> = {
 	lv2RubyDistribution: "center",
 };
 
-export const colorOptions: Record<string, string> = {
+export const COLOR_OPTIONS: Record<string, string> = {
 	unset: "unset",
 	"var(--color-red)": "red",
 	"var(--color-orange)": "orange",
@@ -36,19 +36,19 @@ export const colorOptions: Record<string, string> = {
 	"var(--color-accent-2)": "accent-2",
 };
 
-export const rubyPositionOptions: Record<string, string> = {
+export const RUBY_POSITION_OPTIONS: Record<string, string> = {
 	over: "over",
 	under: "under",
 };
 
-export const rubyDistributionOptions: Record<string, string> = {
+export const RUBY_DISTRIBUTION_OPTIONS: Record<string, string> = {
 	start: "start",
 	center: "center",
 	"space-between": "space-between",
 	"space-around": "space-around",
 };
 
-export const cssVariableMap: Partial<Record<keyof ARSettings, string>> = {
+export const CSS_VARIABLE_MAP: Partial<Record<keyof ARSettings, string>> = {
 	lv1BaseColor: "--ar-lv1-base-color",
 	lv1RubyColor: "--ar-lv1-ruby-color",
 	lv1RubySize: "--ar-lv1-ruby-size",
@@ -63,7 +63,7 @@ export const cssVariableMap: Partial<Record<keyof ARSettings, string>> = {
 	lv2RubyDistribution: "--ar-lv2-ruby-distribution",
 };
 
-export const cssUnits: Partial<Record<keyof ARSettings, string>> = {
+export const CSS_UNITS: Partial<Record<keyof ARSettings, string>> = {
 	lv1RubySize: "%",
 	lv1RubyRelativeOffset: "em",
 	lv2RubySize: "%",
@@ -71,3 +71,24 @@ export const cssUnits: Partial<Record<keyof ARSettings, string>> = {
 };
 
 export const JUMPSEARCHWINDOW: number = 20;
+
+export const MD_RUBY_REGEX: RegExp = /{([^{]+?)\|(.+?)}/g;
+
+export const HTML_RUBY_REGEX: RegExp = /<ruby>(.+?)<rt>(.+?)<\/rt><\/ruby>/g;
+
+export const CODE_REGEX =
+	/(`[^`]+?`|```[\s\S]+?```|<code>[\s\S]+?<\/code>|<pre>[\s\S]+?<\/pre>)/g;
+
+export const MD_RUBY_SYNTAX: Syntax = {
+	head: "{",
+	divider: "|",
+	tail: "}",
+};
+
+export const HTML_RUBY_SYNTAX: Syntax = {
+	head: "<ruby>",
+	divider: "<rt>",
+	tail: "</rt></ruby>",
+};
+
+export const PLACEHOLDER: RegExp = /@@PROTECTED(\d+)@@/g;

@@ -1,13 +1,19 @@
 // OK
-import { type Ruby } from "./types";
+import { MD_RUBY_SYNTAX } from "./constants";
+import { type Ruby, type Syntax } from "./types";
 import { findCharAtDepthFrom } from "./utils";
 
 export function extractRuby(text: string, offset: number = 0): Ruby[] {
 	let extractedRuby: Ruby[] = [];
 	let pointerPosition: number = 0;
 	while (pointerPosition < text.length) {
+		const {
+			head: openingBrace,
+			divider: pipe,
+			tail: closingBrace,
+		}: Syntax = MD_RUBY_SYNTAX;
 		// Skip until the next opening brace
-		if (text[pointerPosition] !== "{") {
+		if (text[pointerPosition] !== openingBrace) {
 			pointerPosition += 1;
 			continue;
 		}
@@ -15,7 +21,7 @@ export function extractRuby(text: string, offset: number = 0): Ruby[] {
 
 		// Search for a closing brace at the same nesting level
 		const closingBraceIndex: number | undefined = findCharAtDepthFrom(
-			"}",
+			closingBrace,
 			1,
 			text,
 			openingBraceIndex + 1,
@@ -35,7 +41,7 @@ export function extractRuby(text: string, offset: number = 0): Ruby[] {
 
 		// Look for the top-level pipe inside the content
 		const pipeIndexInside: number | undefined = findCharAtDepthFrom(
-			"|",
+			pipe,
 			0,
 			braceContent,
 			0,

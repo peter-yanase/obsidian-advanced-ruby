@@ -5,20 +5,21 @@ import {
 	type DecorationSet,
 	type EditorView,
 } from "@codemirror/view";
+
 import { RubyWidget } from "rendering/rubywidget";
 import { type Ruby } from "./types";
-import { isCursorInsideRuby, isInsideCode, isRubyMultiLine } from "./utils";
+import { isCursorInsideRuby, isInsideCode, isRubyUnusable } from "./utils";
 
 export function getRubyDecorations(
 	view: EditorView,
-	cachedRubyMatches: Ruby[],
+	rubyToDecorate: Ruby[],
 ): DecorationSet {
 	const builder = new RangeSetBuilder<Decoration>();
-	for (const ruby of cachedRubyMatches) {
+	for (const ruby of rubyToDecorate) {
 		if (
 			isCursorInsideRuby(ruby, view) ||
 			isInsideCode(ruby.start, view) ||
-			isRubyMultiLine(ruby, view)
+			isRubyUnusable(ruby, view)
 		)
 			continue;
 

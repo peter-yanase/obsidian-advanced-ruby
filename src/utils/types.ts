@@ -1,4 +1,4 @@
-export interface ARSettings {
+export type ARSettings = {
 	smartarrows: boolean;
 
 	lv1BaseColor: string;
@@ -14,13 +14,21 @@ export interface ARSettings {
 	lv2RubyPosition: string;
 	lv2RubyRelativeOffset: number;
 	lv2RubyDistribution: string;
-}
+};
 
-export interface Ruby {
+export type Ruby = {
 	start: number;
 	end: number;
 	base: string;
 	ruby: string;
-}
+};
 
 export type Jump = undefined | "left" | "right";
+
+export type SyntaxType = "HTML" | "MD";
+
+export type Syntax = {
+	head: string;
+	divider: string;
+	tail: string;
+};

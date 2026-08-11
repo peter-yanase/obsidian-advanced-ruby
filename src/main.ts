@@ -1,13 +1,15 @@
+// OK
 import { Plugin } from "obsidian";
+
+import { rubyRenderingExtension } from "rendering/editingview";
+import { rubyPostProcessor } from "rendering/readingview";
 import { addCommands } from "ui/commands";
 import { smartArrowkeysExtension } from "ui/keymaps";
 import { ARSettingTab } from "ui/settingstab";
 import { DEFAULT_SETTINGS } from "utils/constants";
 import { startRubyClassHandler } from "utils/rubyclassadder";
 import { setCSSVariables } from "utils/stylebuilder";
-import { Jump, type ARSettings } from "utils/types";
-import { rubyRenderingExtension } from "rendering/editingview";
-import { rubyPostProcessor } from "rendering/readingview";
+import { type ARSettings, type Jump } from "utils/types";
 
 export default class AdvancedRuby extends Plugin {
 	declare settings: ARSettings;
@@ -18,7 +20,7 @@ export default class AdvancedRuby extends Plugin {
 
 		this.registerEditorExtension(rubyRenderingExtension); // OK
 
-		this.registerEditorExtension(smartArrowkeysExtension(this)); // OK
+		this.registerEditorExtension(smartArrowkeysExtension(this)); // TODO CHECK
 
 		this.registerMarkdownPostProcessor(rubyPostProcessor);
 
@@ -31,7 +33,7 @@ export default class AdvancedRuby extends Plugin {
 		startRubyClassHandler(document);
 	}
 
-	async loadSettings() {
+	async loadSettings(): Promise<void> {
 		// OK
 		this.settings = Object.assign(
 			{},
@@ -40,7 +42,7 @@ export default class AdvancedRuby extends Plugin {
 		);
 	}
 
-	async saveSettings() {
+	async saveSettings(): Promise<void> {
 		// OK
 		await this.saveData(this.settings);
 	}

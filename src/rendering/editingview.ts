@@ -2,11 +2,11 @@
 import {
 	Decoration,
 	ViewPlugin,
-	type ViewUpdate,
-	type EditorView,
-	type PluginValue,
 	type DecorationSet,
+	type EditorView,
 	type PluginSpec,
+	type PluginValue,
+	type ViewUpdate,
 } from "@codemirror/view";
 
 import { getRubyUnderCursor } from "utils/enteredrubygetter";
