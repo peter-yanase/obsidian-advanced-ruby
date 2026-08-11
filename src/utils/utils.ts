@@ -59,9 +59,11 @@ export function findCharAtDepthFrom( // OK
 	depth: number,
 	text: string,
 	start: number,
+	limit: number = 2,
 ): number | undefined {
 	const { head: openingBrace, tail: closingBrace }: Syntax = MD_RUBY_SYNTAX;
 	for (let index: number = start; index < text.length; index += 1) {
+		if (depth > limit) return;
 		const character: string | undefined = text[index];
 		if (character === openingBrace) depth += 1;
 		else if (character === closingBrace) depth -= 1;
