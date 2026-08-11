@@ -162,7 +162,7 @@ export class ARSettingTab extends PluginSettingTab {
 			},
 			{
 				type: "group",
-				heading: "Level  style settings",
+				heading: "Level 2 style settings",
 				items: [
 					{
 						name: "LV2 base color",
