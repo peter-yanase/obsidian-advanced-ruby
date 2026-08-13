@@ -1,3 +1,4 @@
+// TODO
 import { ARSettings, Syntax } from "./types";
 
 export const DEFAULT_SETTINGS: Partial<ARSettings> = {
@@ -72,23 +73,6 @@ export const CSS_UNITS: Partial<Record<keyof ARSettings, string>> = {
 
 export const JUMPSEARCHWINDOW: number = 20;
 
-export const MD_RUBY_REGEX: RegExp = /{([^{]+?)\|(.+?)}/g;
-
-export const HTML_RUBY_REGEX: RegExp = /<ruby>(.+?)<rt>(.+?)<\/rt><\/ruby>/g;
-
-export const CODE_REGEX = new RegExp( // OK
-	[
-		"<code>[\\s\\S]+?<\\/code>",
-		"```[\\s\\S]+?```",
-		"``.+?``", // code with backticks
-		"`.+?`",
-	].join("|"),
-	"g",
-);
-
-/*export const CODE_REGEX =
-	/<code>[\s\S]+?<\/code>|```[\s\S]+?```|``.+?``|`.+?`/g;
-*/
 export const MD_RUBY_SYNTAX: Syntax = {
 	head: "{",
 	divider: "|",
@@ -101,4 +85,48 @@ export const HTML_RUBY_SYNTAX: Syntax = {
 	tail: "</rt></ruby>",
 };
 
-export const PLACEHOLDER: RegExp = /@@PROTECTED(\d+)@@/g;
+export const MD_RUBY_REGEX = new RegExp( // OK
+	[
+		RegExp.escape(MD_RUBY_SYNTAX.head),
+		"([^{\\n]+?)",
+		RegExp.escape(MD_RUBY_SYNTAX.divider),
+		"(.+?)",
+		RegExp.escape(MD_RUBY_SYNTAX.tail),
+	].join(""),
+	"g",
+);
+
+export const HTML_RUBY_REGEX = new RegExp( // OK
+	[
+		RegExp.escape(HTML_RUBY_SYNTAX.head),
+		"(.+?)",
+		RegExp.escape(HTML_RUBY_SYNTAX.divider),
+		"(.+?)",
+		RegExp.escape(HTML_RUBY_SYNTAX.tail),
+	].join(""),
+	"g",
+);
+
+export const CODE_REGEX = new RegExp( // OK
+	[
+		"<code>[\\s\\S]+?<\\/code>",
+		"```[\\s\\S]+?```",
+		"``.+?``", // code with backticks
+		"`.+?`",
+	].join("|"),
+	"g",
+);
+
+export const PLACEHOLDER_SYNTAX: Partial<Syntax> = {
+	head: "@@PROTECTED",
+	tail: "@@",
+};
+
+export const PLACEHOLDER: RegExp = new RegExp(
+	[
+		RegExp.escape(PLACEHOLDER_SYNTAX.head!),
+		"(\\d+)", // number
+		RegExp.escape(PLACEHOLDER_SYNTAX.tail!),
+	].join(""),
+	"g",
+);
