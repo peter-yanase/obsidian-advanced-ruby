@@ -22,7 +22,7 @@ export class ARSettingTab extends PluginSettingTab {
 		key: K,
 		value: ARSettings[K],
 		unit: string = CSS_UNITS[key] ?? "",
-	) {
+	): Promise<void> {
 		this.plugin.settings[key] = value;
 		await this.plugin.saveSettings();
 		document.body.setCssProps({

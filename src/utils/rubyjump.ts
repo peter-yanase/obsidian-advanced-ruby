@@ -3,7 +3,7 @@ import { EditorSelection } from "@codemirror/state";
 import { type EditorView } from "@codemirror/view";
 
 import AdvancedRuby from "main";
-import type { Jump, Ruby } from "utils/types";
+import { type Jump, type Ruby } from "utils/types";
 import { getUpcomingRuby } from "utils/upcomingrubygetter";
 
 export function jumpRuby(

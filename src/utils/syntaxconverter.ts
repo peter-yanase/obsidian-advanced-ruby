@@ -1,10 +1,11 @@
 // OK
 import { type Editor } from "obsidian";
-import { SyntaxType } from "./types";
-import { convertRubySyntax } from "./rubyblocktransformer";
 
-export function convertAndReplace(editor: Editor, target: SyntaxType) {
-	const text = convertRubySyntax(editor.getValue(), target);
-	editor.setValue(text);
-	//	editor.setValue(convertRubySyntax(editor.getValue(), target));
+import { convertRubySyntax } from "./rubyblocktransformer";
+import { SyntaxType } from "./types";
+
+export function convertAndReplace(editor: Editor, target: SyntaxType): void {
+	const originalText: string = editor.getValue();
+	const newText: string = convertRubySyntax(originalText, target);
+	editor.setValue(newText);
 }

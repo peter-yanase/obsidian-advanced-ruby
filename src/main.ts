@@ -15,22 +15,22 @@ export default class AdvancedRuby extends Plugin {
 	declare settings: ARSettings;
 	lastJump: Jump = undefined;
 
-	async onload() {
+	async onload(): Promise<void> {
 		await this.loadSettings(); // OK
 
 		this.registerEditorExtension(rubyRenderingExtension); // OK
 
-		this.registerEditorExtension(smartArrowkeysExtension(this)); // TODO CHECK
+		this.registerEditorExtension(smartArrowkeysExtension(this)); // OK
 
 		this.registerMarkdownPostProcessor(rubyPostProcessor);
 
 		this.addSettingTab(new ARSettingTab(this.app, this));
 
-		addCommands(this);
+		addCommands(this); // OK
 
-		setCSSVariables(this.settings);
+		setCSSVariables(this.settings); // OK
 
-		startRubyClassHandler(document);
+		startRubyClassHandler(document); // OK
 	}
 
 	async loadSettings(): Promise<void> {

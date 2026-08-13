@@ -1,7 +1,7 @@
 import { type Editor, type Menu, type Plugin } from "obsidian";
 import { addMDRubyWrapper } from "utils/rubywrapper";
 
-export function cmdWrap(plugin: Plugin) {
+export function cmdWrap(plugin: Plugin): void {
 	plugin.addCommand({
 		id: "add-md-ruby-wrapper",
 		name: "Wrap in Markdown ruby syntax",
@@ -15,7 +15,7 @@ export function cmdWrap(plugin: Plugin) {
 	});
 }
 
-export function clickWrap(plugin: Plugin) {
+export function clickWrap(plugin: Plugin): void {
 	plugin.registerEvent(
 		plugin.app.workspace.on(
 			"editor-menu",

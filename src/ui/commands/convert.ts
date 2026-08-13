@@ -2,11 +2,11 @@
 import { type Editor, type Plugin } from "obsidian";
 import { convertAndReplace } from "utils/syntaxconverter";
 
-export function cmdConvertToHTML(plugin: Plugin) {
+export function cmdConvertToHTML(plugin: Plugin): void {
 	plugin.addCommand({
 		id: "convert-to-html",
-		name: "Convert to HTML ruby syntax",
-		icon: "replace-all",
+		name: "Convert ruby to HTML syntax",
+		icon: "file-code",
 		editorCheckCallback: (checking: boolean, editor: Editor) => {
 			if (!checking) convertAndReplace(editor, "HTML");
 			return true;
@@ -14,11 +14,11 @@ export function cmdConvertToHTML(plugin: Plugin) {
 	});
 }
 
-export function cmdConvertToMD(plugin: Plugin) {
+export function cmdConvertToMD(plugin: Plugin): void {
 	plugin.addCommand({
 		id: "convert-to-md",
-		name: "Convert to Markdown ruby syntax",
-		icon: "replace-all",
+		name: "Convert ruby to Markdown syntax",
+		icon: "file-braces",
 		editorCheckCallback: (checking: boolean, editor: Editor) => {
 			if (!checking) convertAndReplace(editor, "MD");
 			return true;

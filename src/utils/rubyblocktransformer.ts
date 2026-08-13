@@ -1,8 +1,8 @@
 import {
-	HTML_RUBY_REGEX,
-	MD_RUBY_REGEX,
 	CODE_REGEX,
+	HTML_RUBY_REGEX,
 	HTML_RUBY_SYNTAX,
+	MD_RUBY_REGEX,
 	MD_RUBY_SYNTAX,
 	PLACEHOLDER,
 } from "./constants";
@@ -10,7 +10,7 @@ import { SyntaxType } from "./types";
 
 export function convertRubySyntax(
 	originalText: string,
-	target: SyntaxType,
+	targetSyntax: SyntaxType,
 ): string {
 	let currentTextMutation: string = originalText;
 	let previousTextMutation: string;
@@ -21,13 +21,12 @@ export function convertRubySyntax(
 	currentTextMutation = currentTextMutation.replace(CODE_REGEX, (match) => {
 		protectedSpans.push(match);
 		const numberedSpan: string = `@@PROTECTED${protectedSpans.length - 1}@@`;
-		console.log(numberedSpan);
 		return numberedSpan;
 	});
 
 	const { head, divider, tail }: Record<string, string> =
-		target === "HTML" ? HTML_RUBY_SYNTAX : MD_RUBY_SYNTAX;
-	const regex = target === "HTML" ? MD_RUBY_REGEX : HTML_RUBY_REGEX;
+		targetSyntax === "HTML" ? HTML_RUBY_SYNTAX : MD_RUBY_SYNTAX;
+	const regex = targetSyntax === "HTML" ? MD_RUBY_REGEX : HTML_RUBY_REGEX;
 
 	do {
 		previousTextMutation = currentTextMutation;

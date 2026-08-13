@@ -1,9 +1,10 @@
-export function startRubyClassHandler(document: Document) {
+// OK
+export function startRubyClassHandler(document: Document): void {
 	const observer = new MutationObserver(() => {
-		const allRuby: NodeListOf<HTMLElement> =
+		const everyRuby: NodeListOf<HTMLElement> =
 			document.querySelectorAll("ruby");
 
-		for (const ruby of allRuby) {
+		for (const ruby of everyRuby) {
 			// Create an array of ruby from children
 			const nestedRuby: Element[] = Array.from(ruby.children).filter(
 				(child) => child.tagName === "RUBY",

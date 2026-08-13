@@ -1,11 +1,13 @@
 // OK
 import { sanitizeHTMLToDom } from "obsidian";
+
+import { MD_RUBY_SYNTAX } from "utils/constants";
 import { convertRubySyntax } from "utils/rubyblocktransformer";
 
 // Render ruby in reading mode
-export function rubyPostProcessor(element: HTMLElement) {
+export function rubyPostProcessor(element: HTMLElement): void {
 	// Skip early if there is no opening brace
-	if (!element.innerText.includes("{")) return;
+	if (!element.innerText.includes(MD_RUBY_SYNTAX.head)) return;
 
 	const walker: TreeWalker = activeDocument.createTreeWalker(
 		element,

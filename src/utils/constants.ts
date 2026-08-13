@@ -76,9 +76,19 @@ export const MD_RUBY_REGEX: RegExp = /{([^{]+?)\|(.+?)}/g;
 
 export const HTML_RUBY_REGEX: RegExp = /<ruby>(.+?)<rt>(.+?)<\/rt><\/ruby>/g;
 
-export const CODE_REGEX =
-	/(`[^`]+?`|```[\s\S]+?```|<code>[\s\S]+?<\/code>|<pre>[\s\S]+?<\/pre>)/g;
+export const CODE_REGEX = new RegExp( // OK
+	[
+		"<code>[\\s\\S]+?<\\/code>",
+		"```[\\s\\S]+?```",
+		"``.+?``", // code with backticks
+		"`.+?`",
+	].join("|"),
+	"g",
+);
 
+/*export const CODE_REGEX =
+	/<code>[\s\S]+?<\/code>|```[\s\S]+?```|``.+?``|`.+?`/g;
+*/
 export const MD_RUBY_SYNTAX: Syntax = {
 	head: "{",
 	divider: "|",
