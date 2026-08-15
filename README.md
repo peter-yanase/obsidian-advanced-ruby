@@ -27,7 +27,7 @@ If smart arrow keys are enabled, the cursor will jump over ruby without revealin
 
 ### Style settings
 
-![](/assets/stylesettings.png)
+![](/assets/style_settings.png)
 
 Native style settings lets you customize the rendering to your liking.
 
