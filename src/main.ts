@@ -1,40 +1,38 @@
-// OK
 import { Plugin } from "obsidian";
 
-import { rubyRenderingExtension } from "rendering/editingview";
-import { rubyPostProcessor } from "rendering/readingview";
-import { addCommands } from "ui/commands";
-import { smartArrowkeysExtension } from "ui/keymaps";
-import { ARSettingTab } from "ui/settingstab";
-import { DEFAULT_SETTINGS } from "utils/constants";
-import { startRubyClassHandler } from "utils/rubyclassadder";
-import { setCSSVariables } from "utils/stylebuilder";
-import { type ARSettings, type Jump } from "utils/types";
+import { rubyPostProcessor } from "rendering/rubyPostProcessor";
+import { rubyRenderingExtension } from "rendering/rubyRenderingExtension";
+import { addCommands } from "ui/addCommands";
+import { SettingTab } from "ui/SettingTab";
+import { smartArrowkeysExtension } from "ui/smartArrowkeysExtension";
+import { setCSSVariables } from "utils/setCSSVariables";
+import { startRubyClassHandler } from "utils/startRubyClassHandler";
+import { DEFAULT_SETTINGS } from "./constants";
+import { type Jump, type Settings } from "./types";
 
 export default class AdvancedRuby extends Plugin {
-	declare settings: ARSettings;
+	declare settings: Settings;
 	lastJump: Jump = undefined;
 
 	async onload(): Promise<void> {
-		await this.loadSettings(); // OK
+		await this.loadSettings();
 
-		this.registerEditorExtension(rubyRenderingExtension); // OK
+		this.registerEditorExtension(rubyRenderingExtension);
 
-		this.registerEditorExtension(smartArrowkeysExtension(this)); // OK
+		this.registerEditorExtension(smartArrowkeysExtension(this));
 
 		this.registerMarkdownPostProcessor(rubyPostProcessor);
 
-		this.addSettingTab(new ARSettingTab(this.app, this));
+		this.addSettingTab(new SettingTab(this.app, this));
 
-		addCommands(this); // OK
+		addCommands(this);
 
-		setCSSVariables(this.settings); // OK
+		setCSSVariables(this.settings);
 
-		startRubyClassHandler(document); // OK
+		startRubyClassHandler(document);
 	}
 
 	async loadSettings(): Promise<void> {
-		// OK
 		this.settings = Object.assign(
 			{},
 			DEFAULT_SETTINGS,
@@ -43,7 +41,6 @@ export default class AdvancedRuby extends Plugin {
 	}
 
 	async saveSettings(): Promise<void> {
-		// OK
 		await this.saveData(this.settings);
 	}
 }

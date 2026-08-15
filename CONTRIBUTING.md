@@ -1,0 +1,3 @@
+- [<img style="max-width: 350px" src="https://media1.tenor.com/m/sIB-6LgziVIAAAAC/spongebob-squarepants-spongebob.gif">](https://github.com/peter-yanase/obsidian-advanced-ruby/issues)
+- [<img style="max-width: 350px" src="https://media1.tenor.com/m/S5we0CMFjHIAAAAd/i-had-a-great-idea-ren-h%C3%B6ek.gif">](https://github.com/peter-yanase/obsidian-advanced-ruby/discussions/categories/ideas)
+- [<img style="max-width: 350px" src="https://media1.tenor.com/m/X4I36ci9oIMAAAAC/shut-up-and-take-my-money-money.gif">](https://ko-fi.com/kdijapan)
