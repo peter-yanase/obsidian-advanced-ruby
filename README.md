@@ -21,17 +21,19 @@ The plugin will render ruby in reading and editing mode but show raw markup in s
 
 ### Smart arrow keys
 
-![](/assets/smartarrowkeys.gif)
+![Smart arrow keys](/assets/smartarrowkeys.gif)
 
 If smart arrow keys are enabled, the cursor will jump over ruby without revealing the raw markup. Press the arrow key in the opposite direction after a jump to edit the skipped text. You can disable smart arrow keys in the settings if you prefer to reveal the raw markup on cursor contact.
 
 ### Style settings
 
-![](/assets/style_settings.png)
+![Example style settings](/assets/style_settings.png)
 
 Native style settings lets you customize the rendering to your liking.
 
 ### Syntax conversion
+
+![Converting between syntaxes](/assets//convert_syntax.gif)
 
 Convert between Markdown and HTML ruby syntaxes.
 
