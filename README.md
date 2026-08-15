@@ -1,42 +1,49 @@
-Advanced Ruby enables complex, language-independent ruby annotation rendering and editing.
+<p align="center">
+  <img src="/assets/logo_default.svg" alt="Advanced Ruby logo" /><br />
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fpeter-yanase%2Fobsidian-advanced-ruby%2Fraw%2Frefs%2Fheads%2Fmaster%2Fmanifest.json&query=version&style=for-the-badge&label=version" alt="version badge">
+  <img src="https://img.shields.io/github/downloads/peter-yanase/obsidian-advanced-ruby/total?style=for-the-badge" alt="downloads badge">
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fpeter-yanase%2Fobsidian-advanced-ruby%2Fraw%2Frefs%2Fheads%2Fmaster%2Fpackage.json&query=license&label=license&style=for-the-badge" alt="license badge">
+</p>
 
-While ruby is commonly used to show the pronunciation of Japanese and other East Asian characters, it can be used to annotate any kind of text.
+<p align="center">Advanced Ruby enables language-independent ruby annotation rendering and editing on two separate layers.</p>
 
-This plugin supports the full range of Unicode, making it suitable not only for phonetic guides but also for semantic glosses or layered annotations.
+<p align="center">
+  <img src="/assets/advanced_ruby.gif" alt="Advanced Ruby in action" />
+</p>
 
-It renders Markdown ruby syntax (`{base|ruby}`) as HTML ruby tags (`<ruby>base<rt>ruby</rt></ruby>`) without modifying your notes.
+---
 
-In editing mode, you can insert Markdown ruby wrappers and convert between Markdown and HTML ruby syntaxes.
+## Notable features
 
-## Features
+### Code skipping
 
-- Fast and efficient parsing
-- Code block skipping
-- Touch support for mobile
-- Granular style customization up to two layers
-- Non-destructive rendering
-- Support for complex nested markup
-- Intuitive UI
+The plugin will render ruby in reading and editing mode but show raw markup in source mode. Ruby in code blocks or inline code will not render or transform.
 
-## How to Use
+### Smart arrow keys
 
-- Use the wrapper command to wrap the selected text or insert an empty wrapper. You can also use the context menu to wrap selected text. Alternatively, write ruby markup manually.
-- The plugin will render ruby in reading and editing mode but show raw markup in source mode. Ruby in code blocks or inline code will stay raw.
-- To edit existing annotation, click on it or step into it with the left and right arrow keys.
-- If smart arrows keys are enabled, the cursor will jump over ruby without revealing the raw markup. Press the arrow key in the opposite direction after a jump to edit the skipped text. You can disable smart arrows keys if you prefer to reveal the raw markup on cursor contact.
-- If the note contains any Markdown ruby, the conversion command will convert them to HTML. If the note contains only HTTML ruby, the command will convert all of them to Markdown ruby.
+![](/assets/smartarrowkeys.gif)
 
-## Design Choices
+If smart arrow keys are enabled, the cursor will jump over ruby without revealing the raw markup. Press the arrow key in the opposite direction after a jump to edit the skipped text. You can disable smart arrow keys in the settings if you prefer to reveal the raw markup on cursor contact.
 
-- Markdown and HTML markup inside ruby annotations are not supported.
+### Style settings
 
-## Roadmap
+![](/assets/stylesettings.png)
 
-Feature requests, bug reports, and pull requests are welcome.
+Native style settings lets you customize the rendering to your liking.
 
-### Coming
+### Syntax conversion
 
-This plugin is considered feature-complete. No new features are planned beyond maintenance.
+Convert between Markdown and HTML ruby syntaxes.
+
+## Advanced Ruby ♥️ JADOU
+
+If you plan on using Advanced Ruby with Japanese text, install  [JADOU](https://github.com/peter-yanase/jadou-obsidian) as well to unlock language-specific features.
+
+![Advanced Ruby with JADOU](/assets/advanced_ruby_with_jadou.gif)
+
+# Installing
+
+Refer to [https://obsidian.md/help/community-plugins](https://obsidian.md/help/community-plugins).
 
 ## Security
 
@@ -50,13 +57,8 @@ Advanced Ruby starting from version 2.0.1 is available under the PolyForm-Perime
 This project includes code derived from:
 
 - Markdown Furigana Plugin (Obsidian) (https://github.com/steven-kraft/obsidian-markdown-furigana), licensed under the MIT License. Copyright (c) 2021-2026 Steven Kraft.
-
 - Obsidian Furigana (https://github.com/uonr/obsidian-furigana), licensed under the MIT License. Copyright (c) 2021-2026 Koppa.
-
 - Japanese Novel Ruby Plugin for Obsidian (https://github.com/k-quels/japanese-novel-ruby), licensed under the MIT License. Copyright (c) 2024-2026 quels <@k-quels>.
-
 - Mahgen Renderer (https://github.com/MichaelFW-ui/mahgen-renderer), licensed under the MIT License. Copyright (c) 2024-2026 Michael Francis Williams.
-
 - Obsidian Outliner (https://github.com/vslinko/obsidian-outliner), licensed under the MIT License. Copyright (c) 2021-2026 by Viacheslav Slinko.
-
 - Obsidian Sample Plugin (https://github.com/obsidianmd/obsidian-sample-plugin), licensed under the OBSD License. Copyright (c) 2020-2026 by Dynalist Inc.
