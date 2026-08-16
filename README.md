@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/assets/logo_default.svg" alt="Advanced Ruby logo" /><br />
+  <img src="/assets/advanced_ruby_logo.svg" alt="Advanced Ruby logo" /><br />
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fpeter-yanase%2Fobsidian-advanced-ruby%2Fraw%2Frefs%2Fheads%2Fmaster%2Fmanifest.json&query=version&style=for-the-badge&label=version" alt="version badge">
   <img src="https://img.shields.io/github/downloads/peter-yanase/obsidian-advanced-ruby/total?style=for-the-badge" alt="downloads badge">
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fpeter-yanase%2Fobsidian-advanced-ruby%2Fraw%2Frefs%2Fheads%2Fmaster%2Fpackage.json&query=license&label=license&style=for-the-badge" alt="license badge">
